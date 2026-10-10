@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50.8mm" height="128.5mm" viewBox="0 0 50.8 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efeae0"/><stop offset="1" stop-color="#b8ad98"/></linearGradient>
+    <radialGradient id="knobBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#3a3a3e"/>
+      <stop offset=".55" stop-color="#1a1a1c"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </radialGradient>
+    <radialGradient id="knobCap" cx="40%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#cfc9b8"/>
+      <stop offset="1" stop-color="#7a7468"/>
+    </radialGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#9a9588"/>
+      <stop offset="1" stop-color="#3a3830"/>
+    </radialGradient>
+  </defs>
+  <rect width="50.8" height="128.5" fill="url(#alu)"/>
+  <circle cx="7.5" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="43.3" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="7.5" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <circle cx="43.3" cy="125.5" r="1.6" fill="#1a1a1c"/>
+
+  <text x="25.4" y="11" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="3.4" font-weight="700" letter-spacing="0.4" fill="#1c1c1c">VCF</text>
+  <text x="25.4" y="15.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.65" fill="#5a564c">state variable</text>
+
+  <g transform="translate(25.4,28)">
+    <circle r="9" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".4"/>
+    <circle r="6" fill="url(#knobCap)"/>
+    <line x1="0" y1="-5" x2="0" y2="-1.1" stroke="#e8c547" stroke-width="1.2" stroke-linecap="round"/>
+  </g>
+  <text x="25.4" y="41" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="2.3" font-weight="700" fill="#1c1c1c">CUTOFF</text>
+
+  <g transform="translate(14,54)">
+    <circle r="5.5" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".35"/>
+    <circle r="3.4" fill="url(#knobCap)"/>
+    <line x1="0" y1="-2.9" x2="0" y2="-0.5" stroke="#e8c547" stroke-width=".9" stroke-linecap="round"/>
+  </g>
+  <text x="14" y="63.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="2" font-weight="700" fill="#1c1c1c">RES</text>
+
+  <g transform="translate(36.8,54)">
+    <circle r="5.5" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".35"/>
+    <circle r="3.4" fill="url(#knobCap)"/>
+    <line x1="0" y1="-2.9" x2="0" y2="-0.5" stroke="#e8c547" stroke-width=".9" stroke-linecap="round"/>
+  </g>
+  <text x="36.8" y="63.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="2" font-weight="700" fill="#1c1c1c">FM</text>
+
+  <g transform="translate(14,78)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="14" y="84.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.7" font-weight="700" fill="#1c1c1c">IN</text>
+
+  <g transform="translate(36.8,78)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="36.8" y="84.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.7" font-weight="700" fill="#1c1c1c">FM IN</text>
+
+  <g transform="translate(14,94)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="14" y="100.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.7" font-weight="700" fill="#1c1c1c">RES CV</text>
+
+  <g transform="translate(10,110)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="10" y="117" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.65" font-weight="700" fill="#1c1c1c">LP</text>
+
+  <g transform="translate(25.4,110)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="25.4" y="117" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.65" font-weight="700" fill="#1c1c1c">BP</text>
+
+  <g transform="translate(40.8,110)">
+    <circle r="3.2" fill="url(#jackRing)"/><circle r="1.5" fill="#111"/>
+  </g>
+  <text x="40.8" y="117" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.65" font-weight="700" fill="#1c1c1c">HP</text>
+</svg>

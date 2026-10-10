@@ -1,0 +1,22 @@
+[package]
+name = "emenay-desktop"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "emenay desktop shell"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { workspace = true }
+serde_json = { workspace = true }
+emenay-engine = { workspace = true }
+emenay-modules = { workspace = true, features = ["mi-firmware"] }
+anyhow = { workspace = true }
+parking_lot = { workspace = true }
+
+[lib]
+name = "emenay_desktop_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]

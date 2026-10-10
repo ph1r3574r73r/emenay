@@ -1,0 +1,37 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/emenay-circuit",
+    "crates/emenay-engine",
+    "crates/emenay-mi-host",
+    "crates/emenay-modules",
+    "crates/emenay-spice",
+    "apps/desktop/src-tauri",
+]
+default-members = [
+    "crates/emenay-circuit",
+    "crates/emenay-engine",
+    "crates/emenay-modules",
+    "crates/emenay-spice",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "GPL-3.0-or-later"
+authors = ["emenay contributors"]
+repository = "https://github.com/emenay/emenay"
+
+[workspace.dependencies]
+emenay-circuit = { path = "crates/emenay-circuit" }
+emenay-engine = { path = "crates/emenay-engine" }
+emenay-modules = { path = "crates/emenay-modules" }
+emenay-mi-host = { path = "crates/emenay-mi-host" }
+emenay-spice = { path = "crates/emenay-spice" }
+cpal = "0.15"
+midir = "0.9"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+parking_lot = "0.12"
+anyhow = "1"

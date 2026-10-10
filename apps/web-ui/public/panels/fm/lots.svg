@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="91.44mm" height="128.5mm" viewBox="0 0 91.44 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#dfe6ee"/><stop offset="1" stop-color="#7f8b99"/></linearGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#9a9588"/><stop offset="1" stop-color="#3a3830"/></radialGradient>
+  </defs>
+  <rect width="91.44" height="128.5" fill="url(#alu)"/>
+  <circle cx="7.5" cy="3" r="1.6" fill="#1a1a1c"/><circle cx="83.94" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="7.5" cy="125.5" r="1.6" fill="#1a1a1c"/><circle cx="83.94" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <text x="45.72" y="9.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="3.4" font-weight="700" letter-spacing="0.35" fill="#15202b">LOTS</text>
+  <text x="45.72" y="13.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" fill="#3d4a58">random sampler · t / x / y</text>
+
+  <!-- Column silk: t | déjà vu | X -->
+  <text x="15.5" y="19" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.5" font-weight="700" fill="#3d4a58">t</text>
+  <text x="45.72" y="19" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.5" font-weight="700" fill="#3d4a58">DÉJÀ VU</text>
+  <text x="76" y="19" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.5" font-weight="700" fill="#3d4a58">X</text>
+
+  <text x="15.5" y="36" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">RATE</text>
+  <text x="45.72" y="36" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">AMOUNT</text>
+  <text x="76" y="36" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">SPREAD</text>
+
+  <text x="15.5" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">BIAS</text>
+  <text x="45.72" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">LENGTH</text>
+  <text x="76" y="52" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.55" font-weight="700" fill="#15202b">BIAS</text>
+
+  <text x="15.5" y="66" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#15202b">JITTER</text>
+  <text x="35" y="66" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#15202b">t MODE</text>
+  <text x="56.5" y="66" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#15202b">X MODE</text>
+  <text x="76" y="66" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#15202b">STEPS</text>
+
+  <!-- CV / clock jack labels -->
+  <text x="9" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">t CLK</text>
+  <text x="22" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">X CLK</text>
+  <text x="35" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">RATE</text>
+  <text x="48" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">BIAS</text>
+  <text x="61" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">JIT</text>
+  <text x="74" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">SPR</text>
+  <text x="84.5" y="81.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#15202b">XB</text>
+
+  <g transform="translate(9,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(22,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(35,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(48,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(61,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(74,76)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+  <g transform="translate(84.5,76)"><circle r="2.5" fill="url(#jackRing)"/><circle r="1.15" fill="#111"/></g>
+
+  <text x="15.5" y="94.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#15202b">STEPS</text>
+  <g transform="translate(15.5,89)"><circle r="2.7" fill="url(#jackRing)"/><circle r="1.25" fill="#111"/></g>
+
+  <!-- t outputs + LEDs -->
+  <text x="18" y="108" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">t1</text>
+  <text x="35" y="108" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">t2</text>
+  <text x="52" y="108" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">t3</text>
+  <circle cx="18" cy="98" r="1.3" fill="#1a1a1c"/><circle cx="18" cy="98" r="0.7" fill="#3a3a20"/>
+  <circle cx="35" cy="98" r="1.3" fill="#1a1a1c"/><circle cx="35" cy="98" r="0.7" fill="#3a3a20"/>
+  <circle cx="52" cy="98" r="1.3" fill="#1a1a1c"/><circle cx="52" cy="98" r="0.7" fill="#3a3a20"/>
+  <g transform="translate(18,103)"><circle r="2.9" fill="url(#jackRing)"/><circle r="1.35" fill="#111"/></g>
+  <g transform="translate(35,103)"><circle r="2.9" fill="url(#jackRing)"/><circle r="1.35" fill="#111"/></g>
+  <g transform="translate(52,103)"><circle r="2.9" fill="url(#jackRing)"/><circle r="1.35" fill="#111"/></g>
+
+  <!-- X / Y outs -->
+  <text x="15.5" y="122" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">X1</text>
+  <text x="32" y="122" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">X2</text>
+  <text x="48.5" y="122" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">X3</text>
+  <text x="68" y="122" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.4" font-weight="700" fill="#15202b">Y</text>
+  <g transform="translate(15.5,116)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <g transform="translate(32,116)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <g transform="translate(48.5,116)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <g transform="translate(68,116)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+</svg>

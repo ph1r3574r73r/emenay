@@ -1,0 +1,6 @@
+* emenay reference RC LPF (validation companion)
+Vin 1 0 AC 1
+R1 1 2 10000
+C1 2 0 10n
+.ac dec 10 20 20000
+.end

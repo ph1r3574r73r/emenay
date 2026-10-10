@@ -1,0 +1,3 @@
+[submodule "third-party/eurorack"]
+	path = third-party/eurorack
+	url = git@github.com:ph1r3574r73r/eurorack.git

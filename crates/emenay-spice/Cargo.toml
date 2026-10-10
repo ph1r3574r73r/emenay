@@ -1,0 +1,16 @@
+[package]
+name = "emenay-spice"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Offline ngspice validation helpers for emenay circuit models"
+
+[[bin]]
+name = "emenay-spice-check"
+path = "src/bin/spice_check.rs"
+
+[dependencies]
+emenay-circuit = { workspace = true }
+anyhow = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }

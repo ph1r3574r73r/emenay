@@ -1,0 +1,22 @@
+/target
+**/target
+apps/web-ui/dist
+apps/web-ui/node_modules
+apps/desktop/src-tauri/target
+.DS_Store
+*.log
+.idea
+.vscode
+gen/
+
+# Secrets / local env
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+credentials.json
+secrets.*
+
+# Local maintainer notes (not published)
+docs/third-party/MUTABLE_INSTRUMENTS.md

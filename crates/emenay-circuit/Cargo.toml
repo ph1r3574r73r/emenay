@@ -1,0 +1,9 @@
+[package]
+name = "emenay-circuit"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Fixed-step modified nodal analysis for real-time analog audio circuits"
+
+[dependencies]
+thiserror = { workspace = true }

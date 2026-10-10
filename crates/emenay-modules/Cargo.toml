@@ -1,0 +1,17 @@
+[package]
+name = "emenay-modules"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Built-in Eurorack module DSP for emenay"
+
+[features]
+default = ["mi-firmware"]
+mi-firmware = ["dep:emenay-mi-host"]
+inspired-fallback = []
+
+[dependencies]
+emenay-engine = { workspace = true }
+emenay-circuit = { workspace = true }
+emenay-mi-host = { workspace = true, optional = true }
+serde = { workspace = true }

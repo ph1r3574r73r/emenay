@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Faceplate hit audit</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: #121214;
+        color: #e8e4dc;
+      }
+      body {
+        margin: 0;
+        padding: 16px 20px 48px;
+      }
+      h1 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0 0 6px;
+      }
+      .meta {
+        color: #9a9588;
+        font-size: 13px;
+        margin-bottom: 18px;
+      }
+      .grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .card {
+        background: #1a1a1e;
+        border: 1px solid #2c2c30;
+        border-radius: 8px;
+        padding: 10px;
+      }
+      .card h2 {
+        font-size: 13px;
+        margin: 0 0 8px;
+        font-weight: 600;
+      }
+      .card .src {
+        font-size: 11px;
+        color: #7a756c;
+        margin: -4px 0 8px;
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .plate {
+        position: relative;
+        height: 420px;
+        background: #0a0a0c;
+        outline: 1px solid #333;
+      }
+      .plate img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none;
+      }
+      .hit {
+        position: absolute;
+        transform: translate(-50%, -50%);
+        border: 1.5px solid;
+        border-radius: 50%;
+        box-sizing: border-box;
+        pointer-events: none;
+      }
+      .hit.param {
+        border-color: #5ad;
+        background: rgba(85, 170, 221, 0.18);
+      }
+      .hit.toggle {
+        border-color: #e8c547;
+        background: rgba(232, 197, 71, 0.25);
+        border-radius: 3px;
+      }
+      .hit.in {
+        border-color: #6c6;
+        background: rgba(102, 204, 102, 0.2);
+      }
+      .hit.out {
+        border-color: #e66;
+        background: rgba(238, 102, 102, 0.2);
+      }
+      .hit.led {
+        border-color: #fa0;
+        background: rgba(255, 170, 0, 0.35);
+      }
+      .hit.digit {
+        border-color: #c8f;
+        background: rgba(200, 136, 255, 0.22);
+        border-radius: 2px;
+      }
+      .hit.sm {
+        width: 14px;
+        height: 14px;
+      }
+      .hit.md {
+        width: 22px;
+        height: 22px;
+      }
+      .hit.lg {
+        width: 30px;
+        height: 30px;
+      }
+      .hit .tag {
+        position: absolute;
+        left: 50%;
+        top: calc(100% + 2px);
+        transform: translateX(-50%);
+        font-size: 9px;
+        line-height: 1;
+        white-space: nowrap;
+        color: #fff;
+        text-shadow: 0 0 3px #000, 0 1px 2px #000;
+        opacity: 0.9;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 16px;
+        font-size: 12px;
+        margin-bottom: 16px;
+        color: #bdb8ae;
+      }
+      .legend span::before {
+        content: '';
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border: 1.5px solid;
+        margin-right: 5px;
+        vertical-align: -1px;
+        border-radius: 50%;
+      }
+      .legend .param::before {
+        border-color: #5ad;
+        background: rgba(85, 170, 221, 0.3);
+      }
+      .legend .toggle::before {
+        border-color: #e8c547;
+        border-radius: 2px;
+      }
+      .legend .in::before {
+        border-color: #6c6;
+      }
+      .legend .out::before {
+        border-color: #e66;
+      }
+      .legend .led::before {
+        border-color: #fa0;
+      }
+      .legend .digit::before {
+        border-color: #c8f;
+        border-radius: 2px;
+      }
+      .focus {
+        outline: 2px solid #e8c547;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Faceplate hit audit</h1>
+    <p class="meta">
+      Layout hits overlaid on SVGs. Circles should sit on throughholes / printed controls.
+    </p>
+    <div class="legend">
+      <span class="param">param</span>
+      <span class="toggle">toggle</span>
+      <span class="in">in</span>
+      <span class="out">out</span>
+      <span class="led">led</span>
+      <span class="digit">digit</span>
+    </div>
+    <div class="grid" id="grid"></div>
+    <script type="module">
+      import { PANEL_LAYOUTS, PANEL_ART } from './faceplate-audit-data.js'
+
+      const FOCUS = new Set([
+        'erica_mixer',
+        'dual_vca',
+        'fm_clock',
+        'fm_drift',
+        'fm_rng',
+        'lots',
+        'delay',
+        'fm_offset',
+        'envelope',
+        'vco',
+      ])
+
+      const HP_PX = 22
+      const H = 420
+      const seen = new Set()
+      const grid = document.getElementById('grid')
+
+      const order = Object.keys(PANEL_ART)
+      for (const typeId of order) {
+        const art = PANEL_ART[typeId]
+        const layout = PANEL_LAYOUTS[typeId]
+        if (!layout || !art) continue
+        // Dedupe shared art (fm_mixer vs erica_mixer, etc.)
+        const key = art.src + '|' + layout.source
+        if (seen.has(key)) continue
+        seen.add(key)
+
+        const hp = art.hp ?? 8
+        const card = document.createElement('div')
+        card.className = 'card' + (FOCUS.has(typeId) ? ' focus' : '')
+        card.id = typeId
+        const title = document.createElement('h2')
+        title.textContent = typeId
+        const src = document.createElement('div')
+        src.className = 'src'
+        src.textContent = layout.source
+        card.appendChild(title)
+        card.appendChild(src)
+        const plate = document.createElement('div')
+        plate.className = 'plate'
+        plate.style.width = `${hp * HP_PX}px`
+        plate.style.height = `${H}px`
+        const img = document.createElement('img')
+        img.src = art.src
+        img.alt = typeId
+        plate.appendChild(img)
+        for (const hit of layout.hits) {
+          const el = document.createElement('div')
+          const size = hit.size || 'md'
+          el.className = `hit ${hit.kind} ${size}`
+          el.style.left = `${hit.x}%`
+          el.style.top = `${hit.y}%`
+          if (hit.kind === 'digit' && hit.w && hit.h) {
+            el.style.width = `${hit.w}%`
+            el.style.height = `${hit.h}%`
+            el.style.borderRadius = '2px'
+          }
+          const tag = document.createElement('span')
+          tag.className = 'tag'
+          tag.textContent = hit.id
+          el.appendChild(tag)
+          plate.appendChild(el)
+        }
+        card.appendChild(plate)
+        grid.appendChild(card)
+      }
+    </script>
+  </body>
+</html>

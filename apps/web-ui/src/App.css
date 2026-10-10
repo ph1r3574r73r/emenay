@@ -1,0 +1,1392 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --case-wood: #3a2818;
+  --case-wood-hi: #5a4028;
+  --case-rail: #c5c8cc;
+  --case-rail-dark: #8e9399;
+  --bay: #1a1a1c;
+  --panel: #d8d4c8;
+  --panel-edge: #9a9588;
+  --ink: #1c1c1c;
+  --muted: #5a564c;
+  --accent: #b33a2b;
+  --gold: #c9a227;
+  --jack-metal: #2a2a2a;
+  --jack-ring: #6a6a6a;
+  /* Jack nut colors: signal × direction (in cooler / out warmer). */
+  --jack-cv-in: #3d9a82;
+  --jack-cv-in-dark: #1a4038;
+  --jack-cv-out: #8bc34a;
+  --jack-cv-out-dark: #3a5a18;
+  --jack-gate-in: #8a5cbf;
+  --jack-gate-in-dark: #3a2850;
+  --jack-gate-out: #e08a3c;
+  --jack-gate-out-dark: #6a3a10;
+  --jack-audio-in: #4a8ec8;
+  --jack-audio-in-dark: #1e3a55;
+  --jack-audio-out: #c9a050;
+  --jack-audio-out-dark: #5a4018;
+  /* Legacy aliases (unused by rings; kept for any stray refs). */
+  --jack-cv: var(--jack-cv-in);
+  --jack-cv-dark: var(--jack-cv-in-dark);
+  --jack-gate: var(--jack-gate-in);
+  --jack-gate-dark: var(--jack-gate-in-dark);
+  --jack-audio: var(--jack-audio-in);
+  --jack-audio-dark: var(--jack-audio-in-dark);
+  --jack-out: var(--jack-audio-out);
+  --jack-out-dark: var(--jack-audio-out-dark);
+  --cable-1: #e85d04;
+  --cable-2: #2a9d8f;
+  --cable-3: #e9c46a;
+  --cable-4: #9b5de5;
+  --cable-5: #00b4d8;
+  font-family: "Archivo Narrow", "Arial Narrow", sans-serif;
+  color: var(--ink);
+  background: #121214;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 30% 0%, #2a2420 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, #1a2030 0%, transparent 45%),
+    #121214;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.topbar {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(180deg, #1e1e22, #141416);
+  border-bottom: 1px solid #2e2e34;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #e8e2d4;
+}
+
+.tag {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  color: #7a756c;
+  letter-spacing: 0.04em;
+}
+
+.controls {
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.rack-presets,
+.rack-actions,
+.rack-zoom {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+  margin-left: 0.25rem;
+  padding-left: 0.55rem;
+  border-left: 1px solid #35353c;
+}
+
+.rack-presets select {
+  max-width: 13.5rem;
+  min-width: 8.5rem;
+}
+
+.rack-presets .rack-presets-nav {
+  padding-left: 0.45rem;
+  padding-right: 0.45rem;
+  font-size: 1.05rem;
+  line-height: 1;
+  min-width: 1.7rem;
+}
+
+.rack-zoom .rack-zoom-value {
+  min-width: 2.75rem;
+  padding-left: 0.4rem;
+  padding-right: 0.4rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+}
+
+.controls select,
+.controls button,
+.palette button {
+  font-family: inherit;
+  background: #2a2a30;
+  color: #e8e2d4;
+  border: 1px solid #45454f;
+  border-radius: 2px;
+  padding: 0.35rem 0.65rem;
+  cursor: pointer;
+}
+
+.controls button.primary {
+  background: var(--accent);
+  border-color: #8a2a20;
+  color: #fff;
+}
+
+.controls button.danger {
+  background: #3a3a42;
+}
+
+.controls button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.controls button:not(:disabled):hover,
+.palette button:hover {
+  border-color: var(--gold);
+}
+
+.status {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.7rem;
+  color: #8a857c;
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status.live {
+  color: #6dcf7a;
+}
+
+.palette {
+  min-height: 0;
+  padding: 0.85rem;
+  border-right: 1px solid #2e2e34;
+  background: #18181c;
+  overflow: auto;
+}
+
+.palette h2 {
+  margin: 0 0 0.6rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #7a756c;
+}
+
+.drag-tip {
+  margin: 0 0 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6a655c;
+}
+
+.palette-section {
+  margin-bottom: 0.35rem;
+}
+
+.palette-section-head {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  width: 100%;
+  margin: 0;
+  padding: 0.35rem 0.3rem;
+  border: none;
+  border-radius: 2px;
+  background: transparent;
+  color: #9a9588;
+  cursor: pointer;
+  text-align: left;
+}
+
+.palette-section-head:hover {
+  background: #222228;
+  color: #e8e2d4;
+}
+
+.palette-section-chevron {
+  width: 0.75rem;
+  font-size: 0.65rem;
+  color: #6a655c;
+  flex-shrink: 0;
+}
+
+.palette-section-label {
+  flex: 1;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.palette-section-count {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.6rem;
+  color: #5a564c;
+  min-width: 1.1rem;
+  text-align: right;
+}
+
+.palette-section.open .palette-section-label {
+  color: #c9a227;
+}
+
+.palette-section-body {
+  padding: 0.15rem 0 0.35rem;
+}
+
+.palette-drag-ghost {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #1c1c1c;
+  background: rgba(216, 212, 200, 0.92);
+  border: 1px solid var(--gold);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.palette-card {
+  display: flex;
+  gap: 0.5rem;
+  align-items: stretch;
+  margin-bottom: 0.45rem;
+  padding: 0.35rem;
+  background: #222228;
+  border: 1px solid #3a3a44;
+  border-radius: 3px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+}
+
+.palette-card:active,
+.palette-card.dragging {
+  cursor: grabbing;
+  border-color: var(--gold);
+  opacity: 0.85;
+}
+
+.palette-thumb {
+  width: 36px;
+  height: 72px;
+  flex-shrink: 0;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #d8d4c8, #9a9588);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+}
+
+.palette-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.palette-meta strong {
+  font-size: 0.85rem;
+  color: #e8e2d4;
+  font-weight: 600;
+}
+
+.palette-meta span {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.65rem;
+  color: #8a857c;
+}
+
+.hint {
+  margin-top: 0.85rem;
+  color: #6a655c;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* --- Eurorack case --- */
+
+.studio {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  padding: 1.25rem;
+  display: block;
+}
+
+.case {
+  position: relative;
+  width: var(--case-w, 2496px);
+  max-width: none;
+  flex-shrink: 0;
+  padding: 12px 16px 18px;
+  border-radius: 6px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.25), transparent 4%, transparent 96%, rgba(0, 0, 0, 0.25)),
+    linear-gradient(180deg, var(--case-wood-hi), var(--case-wood) 12%, #2a1c10 100%);
+  box-shadow:
+    0 20px 50px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 220, 160, 0.12),
+    inset 0 -2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.case-io {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0 0 12px;
+  padding: 0.55rem 0.75rem;
+  background: linear-gradient(180deg, #2a2a30, #1a1a1e);
+  border: 1px solid #4a4a52;
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.case-io-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 120px;
+}
+
+.case-io-label > span:first-child {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: #e8e2d4;
+}
+
+.case-io-sub {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.55rem;
+  color: #7a756c;
+}
+
+.case-io-jacks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 0.85rem;
+  flex: 1;
+}
+
+.case-io-jacks .jack-label {
+  color: #a8a090;
+}
+
+.case-io-led {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #3a3a40;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.case-io-led.on {
+  background: #5dcf6a;
+  box-shadow: 0 0 8px rgba(93, 207, 106, 0.7);
+}
+
+.case-stack {
+  position: relative;
+}
+
+.case-cables {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* none on root: empty areas pass through to jacks; stroke hits still catch cables */
+  pointer-events: none;
+  z-index: 8;
+  overflow: visible;
+}
+
+.case-row {
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.case-row:last-child {
+  margin-bottom: 0;
+}
+
+.row-tag {
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  transform: translate(-100%, -50%) rotate(-90deg);
+  transform-origin: center;
+  font-size: 0.55rem;
+  letter-spacing: 0.12em;
+  color: rgba(255, 220, 160, 0.4);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.bay.drop-target {
+  outline: 1px dashed rgba(201, 162, 39, 0.55);
+  outline-offset: -2px;
+}
+
+.drop-ghost {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+  background: rgba(201, 162, 39, 0.18);
+  border: 1px dashed var(--gold);
+  pointer-events: none;
+}
+
+.drop-ghost.blocked {
+  background: rgba(179, 58, 43, 0.2);
+  border-color: var(--accent);
+}
+
+.module.selected {
+  outline: 1px solid rgba(201, 162, 39, 0.85);
+  outline-offset: -1px;
+  z-index: 4;
+}
+
+.module-remove {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 6;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid rgba(0, 0, 0, 0.35);
+  border-radius: 2px;
+  background: rgba(26, 26, 28, 0.72);
+  color: #e8e2d4;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.12s ease;
+}
+
+.module:hover .module-remove,
+.module.selected .module-remove {
+  opacity: 1;
+}
+
+.module-remove:hover {
+  background: var(--accent);
+  border-color: #8a2a1e;
+  color: #fff;
+}
+
+.jack.disabled {
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.rail {
+  height: 14px;
+  border-radius: 1px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      var(--case-rail) 0 10px,
+      var(--case-rail-dark) 10px 11px,
+      var(--case-rail) 11px 20px
+    ),
+    linear-gradient(180deg, #e0e2e6, var(--case-rail-dark));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.rail.bottom {
+  margin-top: 0;
+}
+
+.bay {
+  position: relative;
+  height: var(--rack-h, 300px);
+  width: 100%;
+  margin: 0;
+  background:
+    linear-gradient(180deg, #0e0e10, var(--bay)),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent calc(var(--hp) - 1px),
+      rgba(255, 255, 255, 0.03) calc(var(--hp) - 1px),
+      rgba(255, 255, 255, 0.03) var(--hp)
+    );
+  box-shadow:
+    inset 0 8px 16px rgba(0, 0, 0, 0.65),
+    inset 0 -6px 12px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+.cables {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.cable-group {
+  pointer-events: stroke;
+  cursor: pointer;
+}
+
+.cable-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 10;
+  stroke-linecap: butt;
+  pointer-events: stroke;
+}
+
+.cable-shadow {
+  fill: none;
+  stroke: rgba(0, 0, 0, 0.55);
+  stroke-width: 7;
+  stroke-linecap: round;
+  transform: translate(1.5px, 2px);
+  pointer-events: none;
+}
+
+.cable-body {
+  fill: none;
+  stroke-width: 5;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.cable-sheen {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.28);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-dasharray: 18 42;
+  transform: translate(0, -1px);
+  pointer-events: none;
+}
+
+.cable-plug {
+  stroke: rgba(0, 0, 0, 0.55);
+  stroke-width: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.45));
+}
+
+.cable-plug-core {
+  fill: #1a1a1c;
+  pointer-events: none;
+}
+
+.cable-group.hot .cable-body {
+  stroke-width: 6;
+  filter: brightness(1.15);
+}
+
+.cable-group.hot .cable-sheen {
+  stroke: rgba(255, 255, 255, 0.5);
+}
+
+/* --- Module faceplate --- */
+
+.module {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  height: 100%;
+  padding: 8px 4px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.12), transparent 8%, transparent 92%, rgba(0, 0, 0, 0.1)),
+    linear-gradient(180deg, #ebe6da, var(--panel) 12%, #cfcab8);
+  border-left: 1px solid rgba(255, 255, 255, 0.35);
+  border-right: 1px solid rgba(0, 0, 0, 0.25);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  user-select: none;
+  cursor: grab;
+}
+
+.module:active {
+  cursor: grabbing;
+}
+
+.module.has-faceplate {
+  background-color: #1a1a1c;
+  padding: 0;
+  /* No layout borders — seams drawn via ::after so hits stay aligned. */
+  border-left: none;
+  border-right: none;
+  box-shadow: none;
+}
+
+/* Hairline bevel + dark seam between adjacent panels (like real aluminum edges). */
+.module.has-faceplate::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  box-shadow:
+    inset 1px 0 0 rgba(255, 255, 255, 0.22),
+    inset -1px 0 0 rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    -1px 0 0 #0a0a0c;
+}
+
+.module-faceplate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+.module.plate-layout {
+  overflow: hidden;
+}
+
+.module-body.plate-hits {
+  position: absolute;
+  inset: 0;
+  display: block;
+  padding: 0;
+  pointer-events: none;
+}
+
+.knob-wrap.abs,
+.jack-wrap.abs,
+.step-toggle-wrap.abs,
+.panel-led-wrap.abs,
+.panel-digit-wrap.abs {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+  z-index: 3;
+  margin: 0;
+  gap: 0;
+}
+
+/* Jacks sit above cable hit zones so plug clicks re-patch instead of unpatch. */
+.jack-wrap.abs {
+  z-index: 10;
+}
+.step-toggle-wrap.abs,
+.knob-wrap.abs {
+  z-index: 9;
+}
+
+.panel-led-wrap,
+.panel-digit-wrap {
+  pointer-events: none;
+  z-index: 4;
+}
+
+.panel-led {
+  display: block;
+  width: calc(var(--hp) * 0.5);
+  height: calc(var(--hp) * 0.5);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--led-color, #e8c547) 18%, #1a1a1c);
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.8);
+  opacity: 0.45;
+}
+
+.panel-led.on {
+  background: var(--led-color, #e8c547);
+  opacity: calc(0.35 + var(--led-bright, 1) * 0.65);
+  box-shadow:
+    0 0 4px color-mix(in srgb, var(--led-color, #e8c547) 80%, transparent),
+    0 0 10px color-mix(in srgb, var(--led-color, #e8c547) 45%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+.panel-led-wrap.size-md .panel-led {
+  width: calc(var(--hp) * 0.64);
+  height: calc(var(--hp) * 0.64);
+}
+
+.panel-led-wrap.size-lg .panel-led {
+  width: calc(var(--hp) * 0.79);
+  height: calc(var(--hp) * 0.79);
+}
+
+.panel-digit {
+  display: block;
+  min-width: 1.1em;
+  padding: 1px 3px;
+  border-radius: 2px;
+  background: #0e0e10;
+  border: 1px solid #2a2a2e;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: calc(var(--hp) * 0.71);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.15;
+  text-align: center;
+  text-shadow: 0 0 6px currentColor;
+}
+
+.panel-digit-wrap.size-md .panel-digit {
+  font-size: calc(var(--hp) * 0.82);
+  padding: 2px 4px;
+}
+
+.panel-digit-wrap.size-lg .panel-digit {
+  font-size: calc(var(--hp) * 0.97);
+  padding: 2px 5px;
+}
+
+/* Fill a faceplate LCD window (Clock BPM, etc.) — no nested black box. */
+.panel-digit-wrap.lcd-fill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 4;
+}
+.panel-digit-wrap.lcd-fill .panel-digit {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: clamp(0.85rem, 55%, calc(var(--hp) * 1.3));
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-shadow: 0 0 4px currentColor, 0 0 10px color-mix(in srgb, currentColor 45%, transparent);
+}
+
+/* Latching pushbuttons — circle by default; rect for mute rockers. */
+.step-toggle {
+  border: 1px solid #0a0a0a;
+  padding: 0;
+  cursor: pointer;
+  background: linear-gradient(180deg, #3a3a3e 0%, #1a1a1c 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.step-toggle.shape-circle {
+  width: calc(var(--hp) * 0.95);
+  height: calc(var(--hp) * 0.95);
+  border-radius: 50%;
+  aspect-ratio: 1;
+}
+
+.step-toggle.shape-rect {
+  width: calc(var(--hp) * 1);
+  height: calc(var(--hp) * 0.79);
+  border-radius: 2px;
+}
+
+.step-toggle.on {
+  background: linear-gradient(180deg, #f0c94a 0%, #c49a18 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 6px rgba(232, 197, 71, 0.55);
+}
+
+.step-toggle.off:hover {
+  background: linear-gradient(180deg, #4a4a4e 0%, #2a2a2c 100%);
+}
+
+.step-toggle-wrap.size-sm .step-toggle.shape-circle {
+  width: calc(var(--hp) * 0.9);
+  height: calc(var(--hp) * 0.9);
+}
+
+.step-toggle-wrap.size-md .step-toggle.shape-circle {
+  width: calc(var(--hp) * 1.05);
+  height: calc(var(--hp) * 1.05);
+}
+
+.step-toggle-wrap.size-sm .step-toggle.shape-rect {
+  width: calc(var(--hp) * 1);
+  height: calc(var(--hp) * 0.79);
+}
+
+.step-toggle-wrap.size-md .step-toggle.shape-rect {
+  width: calc(var(--hp) * 1.14);
+  height: calc(var(--hp) * 0.86);
+}
+
+/* Silk overlays — keep hit center at (-50%, -50%); label sits below the control. */
+.knob-wrap.has-silk,
+.jack-wrap.has-silk {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  transform: translate(-50%, -50%);
+}
+
+.knob-label.silk,
+.jack-label.silk {
+  position: absolute;
+  top: calc(100% + 1px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  height: auto;
+  opacity: 1;
+  margin: 0;
+  padding: 0 1px;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: calc(var(--hp) * 0.55);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.05;
+  text-transform: uppercase;
+  color: #1a1814;
+  text-shadow:
+    0 0 2px rgba(244, 241, 234, 0.95),
+    0 1px 0 rgba(244, 241, 234, 0.8);
+  white-space: nowrap;
+  pointer-events: none;
+  max-width: calc(var(--hp) * 5.1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Drag readout on faceplate (non-pitch knobs). */
+.knob-wrap.on-plate .knob-value {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 1px);
+  transform: translateX(-50%);
+  z-index: 5;
+  margin: 0;
+  padding: 0 2px;
+  border-radius: 2px;
+  background: rgba(14, 14, 16, 0.82);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: calc(var(--hp) * 0.55);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+  color: #e8c547;
+  text-shadow: 0 0 4px rgba(232, 197, 71, 0.45);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Sequencer step pitch sits under the pot like the old step numbers. */
+.knob-label.silk.pitch {
+  color: #1a1814;
+  font-size: calc(var(--hp) * 0.57);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+/* Plate knobs/jacks stay fully opaque — match real hardware colors. */
+.module.plate-layout .knob-wrap.on-plate .knob {
+  opacity: 1;
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    inset 0 -2px 3px rgba(0, 0, 0, 0.55);
+}
+
+.module.plate-layout .jack-wrap.on-plate .jack {
+  opacity: 1;
+}
+
+/* Faceplate jacks: transparent caps over SVG art, keep colored signal rings. */
+.module.plate-layout .jack-wrap.ghost.on-plate .jack {
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow:
+    0 0 0 2px var(--jack-ring),
+    0 0 0 3px rgba(0, 0, 0, 0.35);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack::before {
+  display: none;
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.cv-in {
+  box-shadow:
+    0 0 0 2.5px var(--jack-cv-in),
+    0 0 0 3.5px var(--jack-cv-in-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.cv-out {
+  box-shadow:
+    0 0 0 2.5px var(--jack-cv-out),
+    0 0 0 3.5px var(--jack-cv-out-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.gate-in {
+  box-shadow:
+    0 0 0 2.5px var(--jack-gate-in),
+    0 0 0 3.5px var(--jack-gate-in-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.gate-out {
+  box-shadow:
+    0 0 0 2.5px var(--jack-gate-out),
+    0 0 0 3.5px var(--jack-gate-out-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.audio-in {
+  box-shadow:
+    0 0 0 2.5px var(--jack-audio-in),
+    0 0 0 3.5px var(--jack-audio-in-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.audio-out {
+  box-shadow:
+    0 0 0 2.5px var(--jack-audio-out),
+    0 0 0 3.5px var(--jack-audio-out-dark);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack:hover {
+  filter: brightness(1.15);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.armed {
+  box-shadow:
+    0 0 0 2.5px var(--accent),
+    0 0 0 4.5px rgba(179, 58, 43, 0.45);
+}
+.module.plate-layout .jack-wrap.ghost.on-plate .jack.patched {
+  box-shadow:
+    0 0 0 2.5px #e8c547,
+    0 0 0 4px rgba(90, 72, 16, 0.9);
+}
+
+/* Free Modular through-holes: draw jack caps over the + holes. */
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack {
+  opacity: 1;
+  background:
+    radial-gradient(circle at 50% 50%, #0a0a0a 0 30%, transparent 31%),
+    radial-gradient(circle at 40% 35%, #8a8a8a, var(--jack-metal) 60%);
+  box-shadow:
+    0 0 0 2px var(--jack-ring),
+    0 0 0 3px #3a3a3a,
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.in::before {
+  display: block;
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.cv-in {
+  box-shadow:
+    0 0 0 2px var(--jack-cv-in),
+    0 0 0 3px var(--jack-cv-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.cv-out {
+  box-shadow:
+    0 0 0 2px var(--jack-cv-out),
+    0 0 0 3px var(--jack-cv-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.gate-in {
+  box-shadow:
+    0 0 0 2px var(--jack-gate-in),
+    0 0 0 3px var(--jack-gate-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.gate-out {
+  box-shadow:
+    0 0 0 2px var(--jack-gate-out),
+    0 0 0 3px var(--jack-gate-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.audio-in {
+  box-shadow:
+    0 0 0 2px var(--jack-audio-in),
+    0 0 0 3px var(--jack-audio-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+.module.plate-layout .jack-wrap.jack-cap.on-plate .jack.audio-out {
+  box-shadow:
+    0 0 0 2px var(--jack-audio-out),
+    0 0 0 3px var(--jack-audio-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* 2HP mult: SVG already draws jacks — keep hit targets small and circular. */
+.module[data-hp='2'].plate-layout .jack-wrap.on-plate .jack {
+  width: min(calc(var(--hp) * 0.95), 92%);
+  height: min(calc(var(--hp) * 0.95), 92%);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+}
+
+/* Envelope stage letter holes — fill the Free Modular through-holes. */
+.panel-led-wrap.size-md.stage-hole .panel-led,
+.panel-led-wrap.stage-hole .panel-led {
+  width: calc(var(--hp) * 1.14);
+  height: calc(var(--hp) * 1.14);
+}
+
+/* Clock PW sits on the yellow Free Modular encoder graphic. */
+.knob.tinted.clock-pw {
+  background:
+    radial-gradient(circle at 32% 28%, #fff76a, #e8c547 55%, #b89620);
+  border: 1px solid rgba(90, 70, 10, 0.55);
+}
+
+.knob.size-sm,
+.jack.size-sm {
+  width: calc(var(--hp) * 1.14);
+  height: calc(var(--hp) * 1.14);
+}
+
+.knob.size-md {
+  width: calc(var(--hp) * 1.86);
+  height: calc(var(--hp) * 1.86);
+}
+
+.jack.size-md {
+  width: calc(var(--hp) * 1.29);
+  height: calc(var(--hp) * 1.29);
+}
+
+.knob.size-lg {
+  width: calc(var(--hp) * 2.43);
+  height: calc(var(--hp) * 2.43);
+}
+
+.jack.size-lg {
+  width: calc(var(--hp) * 1.57);
+  height: calc(var(--hp) * 1.57);
+}
+
+.jack.size-sm::before {
+  inset: calc(var(--hp) * 0.36);
+}
+
+.jack.size-md::before {
+  inset: calc(var(--hp) * 0.36);
+}
+
+.jack.size-lg::before {
+  inset: calc(var(--hp) * 0.5);
+}
+
+.module.speaker {
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.15), transparent 10%, transparent 90%, rgba(0, 0, 0, 0.12)),
+    linear-gradient(180deg, #3a3a40, #2a2a30 40%, #222228);
+  color: #e8e2d4;
+}
+
+.module.speaker .module-title,
+.module.speaker .jack-label,
+.module.speaker .knob-label {
+  color: #cfc8b8;
+}
+
+.screw {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, #f0f0f0, #8a8a8a 55%, #4a4a4a);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.screws {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 2px;
+}
+
+.module-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1.1;
+  color: var(--ink);
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.module-body {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 0;
+}
+
+.knob-bank {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 6px;
+  width: 100%;
+  padding: 0 2px;
+}
+
+.knob-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  width: 42px;
+}
+
+.knob-label {
+  font-size: 0.55rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1;
+}
+
+.knob {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: ns-resize;
+  --knob-cap: #1a1a1c;
+  background:
+    radial-gradient(circle at 32% 28%, #5a5a5a, var(--knob-cap) 72%);
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+/* Colored caps (e.g. Free Modular Envelope A/D/S/R). */
+.knob.tinted {
+  background:
+    radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--knob-cap) 55%, white), var(--knob-cap) 58%, color-mix(in srgb, var(--knob-cap) 70%, black));
+  border: 1px solid rgba(0, 0, 0, 0.35);
+}
+
+/* Pointer: origin at knob center so it stays on-cap at every size. */
+.knob::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--hp) * 0.14);
+  height: 32%;
+  margin-left: calc(var(--hp) * -0.07);
+  margin-top: -32%;
+  border-radius: 1px;
+  background: #f2c14e;
+  transform-origin: 50% 100%;
+  transform: rotate(var(--angle, -135deg));
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.knob.size-sm::after {
+  width: calc(var(--hp) * 0.11);
+  margin-left: calc(var(--hp) * -0.055);
+  height: 34%;
+  margin-top: -34%;
+}
+
+.knob.size-md::after {
+  height: 33%;
+  margin-top: -33%;
+}
+
+.knob.size-lg::after {
+  width: calc(var(--hp) * 0.18);
+  margin-left: calc(var(--hp) * -0.09);
+  height: 30%;
+  margin-top: -30%;
+}
+
+.knob.tinted::after {
+  background: #1a1a1c;
+  box-shadow: 0 0 1px rgba(255, 255, 255, 0.35);
+}
+
+.knob.tinted.clock-pw::after {
+  background: #1a1a1c;
+}
+
+.knob-value {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.5rem;
+  color: var(--muted);
+}
+
+.jack-bank {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 2px 4px;
+}
+
+.jack-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+.jack-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 36px;
+}
+
+.jack-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.05;
+}
+
+.jack {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  cursor: crosshair;
+  background:
+    radial-gradient(circle at 50% 50%, #0a0a0a 0 28%, transparent 29%),
+    radial-gradient(circle at 40% 35%, #8a8a8a, var(--jack-metal) 60%);
+  box-shadow:
+    0 0 0 2px var(--jack-ring),
+    0 0 0 3px #3a3a3a,
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 1;
+}
+
+.jack.patched {
+  box-shadow:
+    0 0 0 2px #c9a227,
+    0 0 0 3px #5a4810,
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.jack.in::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: #111;
+}
+
+.jack.armed {
+  box-shadow:
+    0 0 0 2px var(--accent),
+    0 0 0 4px rgba(179, 58, 43, 0.45),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+
+.jack.cv-in {
+  box-shadow:
+    0 0 0 2px var(--jack-cv-in),
+    0 0 0 3px var(--jack-cv-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+.jack.cv-out {
+  box-shadow:
+    0 0 0 2px var(--jack-cv-out),
+    0 0 0 3px var(--jack-cv-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+.jack.gate-in {
+  box-shadow:
+    0 0 0 2px var(--jack-gate-in),
+    0 0 0 3px var(--jack-gate-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+.jack.gate-out {
+  box-shadow:
+    0 0 0 2px var(--jack-gate-out),
+    0 0 0 3px var(--jack-gate-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+.jack.audio-in {
+  box-shadow:
+    0 0 0 2px var(--jack-audio-in),
+    0 0 0 3px var(--jack-audio-in-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8);
+}
+.jack.audio-out {
+  box-shadow:
+    0 0 0 2px var(--jack-audio-out),
+    0 0 0 3px var(--jack-audio-out-dark),
+    inset 0 2px 3px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.section-label {
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #8a8578;
+  margin-top: 2px;
+}

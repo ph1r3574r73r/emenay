@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30.48mm" height="128.5mm" viewBox="0 0 30.48 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#efeae0"/><stop offset="1" stop-color="#b8ad98"/></linearGradient>
+    <radialGradient id="knobBody" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#3a3a3e"/><stop offset=".55" stop-color="#1a1a1c"/><stop offset="1" stop-color="#0a0a0c"/></radialGradient>
+    <radialGradient id="knobCap" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#cfc9b8"/><stop offset="1" stop-color="#7a7468"/></radialGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#9a9588"/><stop offset="1" stop-color="#3a3830"/></radialGradient>
+  </defs>
+  <rect width="30.48" height="128.5" fill="url(#alu)"/>
+  <circle cx="7.5" cy="3" r="1.6" fill="#1a1a1c"/><circle cx="22.98" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="7.5" cy="125.5" r="1.6" fill="#1a1a1c"/><circle cx="22.98" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <text x="15.24" y="10" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="3" font-weight="700" letter-spacing="0.2" fill="#1c1c1c">ADSR</text>
+  <text x="15.24" y="14" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" fill="#5a564c">envelope</text>
+  <g transform="translate(15.24,24)"><circle r="5.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="3.22" fill="url(#knobCap)"/><line x1="0" y1="-2.86" x2="0" y2="-0.62" stroke="#e8c547" stroke-width=".85" stroke-linecap="round"/></g>
+  <text x="15.24" y="33" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.8" font-weight="700" fill="#1c1c1c">A</text>
+  <g transform="translate(15.24,44)"><circle r="5.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="3.22" fill="url(#knobCap)"/><line x1="0" y1="-2.86" x2="0" y2="-0.62" stroke="#e8c547" stroke-width=".85" stroke-linecap="round"/></g>
+  <text x="15.24" y="53" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.8" font-weight="700" fill="#1c1c1c">D</text>
+  <g transform="translate(15.24,64)"><circle r="5.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="3.22" fill="url(#knobCap)"/><line x1="0" y1="-2.86" x2="0" y2="-0.62" stroke="#e8c547" stroke-width=".85" stroke-linecap="round"/></g>
+  <text x="15.24" y="73" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.8" font-weight="700" fill="#1c1c1c">S</text>
+  <g transform="translate(15.24,84)"><circle r="5.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="3.22" fill="url(#knobCap)"/><line x1="0" y1="-2.86" x2="0" y2="-0.62" stroke="#e8c547" stroke-width=".85" stroke-linecap="round"/></g>
+  <text x="15.24" y="93" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.8" font-weight="700" fill="#1c1c1c">R</text>
+  <g transform="translate(8,104)"><circle r="3.1" fill="url(#jackRing)"/><circle r="1.45" fill="#111"/></g>
+  <text x="8" y="110.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#1c1c1c">GATE</text>
+  <g transform="translate(22.5,104)"><circle r="3.1" fill="url(#jackRing)"/><circle r="1.45" fill="#111"/></g>
+  <text x="22.5" y="110.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#1c1c1c">TRIG</text>
+  <g transform="translate(8,116)"><circle r="3.1" fill="url(#jackRing)"/><circle r="1.45" fill="#111"/></g>
+  <text x="8" y="122.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#1c1c1c">ENV</text>
+  <g transform="translate(22.5,116)"><circle r="3.1" fill="url(#jackRing)"/><circle r="1.45" fill="#111"/></g>
+  <text x="22.5" y="122.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#1c1c1c">EOC</text>
+</svg>

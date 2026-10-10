@@ -1,0 +1,20 @@
+[package]
+name = "emenay-mi-host"
+version.workspace = true
+edition.workspace = true
+license = "MIT"
+description = "Desktop host for Mutable Instruments Eurorack firmware DSP (MIT)"
+
+[features]
+default = ["mi-facets", "mi-chimes", "mi-twist", "mi-swell", "mi-lots"]
+mi-facets = []
+mi-chimes = []
+mi-twist = []
+mi-swell = []
+mi-lots = []
+
+[build-dependencies]
+cc = "1"
+
+[dependencies]
+libc = "0.2"

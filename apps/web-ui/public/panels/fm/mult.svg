@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10.16mm" height="128.5mm" viewBox="0 0 10.16 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d8dde2"/><stop offset="1" stop-color="#8a9298"/></linearGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#9a9588"/><stop offset="1" stop-color="#3a3830"/></radialGradient>
+  </defs>
+  <rect width="10.16" height="128.5" fill="url(#alu)"/>
+  <!-- Single center mounting holes (2HP). -->
+  <circle cx="5.08" cy="3" r="1.35" fill="#1a1a1c"/>
+  <circle cx="5.08" cy="125.5" r="1.35" fill="#1a1a1c"/>
+  <text x="5.08" y="11" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="2.1" font-weight="700" fill="#1c1c1c">MULT</text>
+  <text x="5.08" y="14.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" fill="#5a564c">1→4</text>
+  <g transform="translate(5.08,28)"><circle r="2.55" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <text x="5.08" y="34.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#1c1c1c">IN</text>
+  <g transform="translate(5.08,52)"><circle r="2.55" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <text x="5.08" y="58.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#1c1c1c">1</text>
+  <g transform="translate(5.08,70)"><circle r="2.55" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <text x="5.08" y="76.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#1c1c1c">2</text>
+  <g transform="translate(5.08,88)"><circle r="2.55" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <text x="5.08" y="94.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#1c1c1c">3</text>
+  <g transform="translate(5.08,106)"><circle r="2.55" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <text x="5.08" y="112.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.25" font-weight="700" fill="#1c1c1c">4</text>
+</svg>

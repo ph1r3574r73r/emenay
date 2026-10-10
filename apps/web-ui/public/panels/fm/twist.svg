@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50.8mm" height="128.5mm" viewBox="0 0 50.8 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c5cad1"/><stop offset="1" stop-color="#5c646e"/></linearGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%"><stop offset="0" stop-color="#9a9588"/><stop offset="1" stop-color="#3a3830"/></radialGradient>
+  </defs>
+  <rect width="50.8" height="128.5" fill="url(#alu)"/>
+  <circle cx="7.5" cy="3" r="1.6" fill="#1a1a1c"/><circle cx="43.3" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="7.5" cy="125.5" r="1.6" fill="#1a1a1c"/><circle cx="43.3" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <text x="25.4" y="10.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="3.2" font-weight="700" letter-spacing="0.3" fill="#121418">TWIST</text>
+  <text x="25.4" y="14.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.5" fill="#3a4048">meta modulator</text>
+
+  <text x="25.4" y="41.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.7" font-weight="700" fill="#121418">ALGORITHM</text>
+  <text x="12" y="60" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#121418">TIMBRE</text>
+  <text x="38.5" y="60" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#121418">LVL1</text>
+  <text x="12" y="76" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#121418">LVL2</text>
+  <text x="38.5" y="76" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.45" font-weight="700" fill="#121418">FREQ</text>
+  <text x="25.4" y="88" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.3" font-weight="700" fill="#121418">SHAPE</text>
+
+  <text x="12" y="100" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#121418">CAR</text>
+  <text x="38.5" y="100" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#121418">MOD</text>
+  <g transform="translate(12,95)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <g transform="translate(38.5,95)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+
+  <text x="7" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.15" font-weight="700" fill="#121418">ALG</text>
+  <text x="15.5" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.15" font-weight="700" fill="#121418">TMB</text>
+  <text x="24" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.15" font-weight="700" fill="#121418">L1</text>
+  <text x="32.5" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.15" font-weight="700" fill="#121418">L2</text>
+  <text x="40.5" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.2" font-weight="700" fill="#121418">OUT</text>
+  <text x="47.5" y="116" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.15" font-weight="700" fill="#121418">AUX</text>
+  <g transform="translate(7,111)"><circle r="2.4" fill="url(#jackRing)"/><circle r="1.1" fill="#111"/></g>
+  <g transform="translate(15.5,111)"><circle r="2.4" fill="url(#jackRing)"/><circle r="1.1" fill="#111"/></g>
+  <g transform="translate(24,111)"><circle r="2.4" fill="url(#jackRing)"/><circle r="1.1" fill="#111"/></g>
+  <g transform="translate(32.5,111)"><circle r="2.4" fill="url(#jackRing)"/><circle r="1.1" fill="#111"/></g>
+  <g transform="translate(40.5,111)"><circle r="2.6" fill="url(#jackRing)"/><circle r="1.2" fill="#111"/></g>
+  <g transform="translate(47.5,111)"><circle r="2.4" fill="url(#jackRing)"/><circle r="1.1" fill="#111"/></g>
+</svg>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="162.56mm" height="128.5mm" viewBox="0 0 162.56 128.5" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="alu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e4dcc8"/><stop offset="1" stop-color="#a69878"/></linearGradient>
+    <radialGradient id="knobBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0" stop-color="#3a3a3e"/>
+      <stop offset=".55" stop-color="#1a1a1c"/>
+      <stop offset="1" stop-color="#0a0a0c"/>
+    </radialGradient>
+    <radialGradient id="knobCap" cx="40%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#cfc9b8"/>
+      <stop offset="1" stop-color="#7a7468"/>
+    </radialGradient>
+    <radialGradient id="jackRing" cx="40%" cy="35%" r="65%">
+      <stop offset="0" stop-color="#9a9588"/>
+      <stop offset="1" stop-color="#3a3830"/>
+    </radialGradient>
+  </defs>
+  <rect width="162.56" height="128.5" fill="url(#alu)"/>
+  <circle cx="7.5" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="155.06" cy="3" r="1.6" fill="#1a1a1c"/>
+  <circle cx="7.5" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <circle cx="155.06" cy="125.5" r="1.6" fill="#1a1a1c"/>
+  <text x="81.28" y="9.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="3" font-weight="700" letter-spacing="0.2" fill="#1c1c1c">SEQUENCER 64</text>
+  <text x="81.28" y="13.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" fill="#5a564c">64-step · rests mute</text>
+  <g transform="translate(29.26,20.0)"><circle r="4.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="2.60" fill="url(#knobCap)"/><line x1="0" y1="-2.18" x2="0" y2="-0.42" stroke="#e8c547" stroke-width=".7" stroke-linecap="round"/></g>
+  <text x="29.26" y="28.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">LEN</text>
+  <g transform="translate(61.77,20.0)"><circle r="4.2" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".3"/><circle r="2.60" fill="url(#knobCap)"/><line x1="0" y1="-2.18" x2="0" y2="-0.42" stroke="#e8c547" stroke-width=".7" stroke-linecap="round"/></g>
+  <text x="61.77" y="28.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">GLIDE</text>
+  <rect x="112.04" y="17.00" width="10" height="6" rx="0.6" fill="#1a1810" stroke="#3a3528" stroke-width=".3"/>
+  <circle cx="8.83" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(8.83,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="7.63" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="18.49" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(18.49,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="17.29" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="28.15" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(28.15,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="26.95" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="37.81" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(37.81,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="36.61" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="47.47" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(47.47,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="46.27" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="57.13" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(57.13,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="55.93" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="66.79" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(66.79,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="65.59" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="76.45" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(76.45,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="75.25" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="86.11" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(86.11,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="84.91" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="95.77" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(95.77,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="94.57" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="105.43" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(105.43,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="104.23" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="115.09" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(115.09,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="113.89" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="124.75" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(124.75,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="123.55" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="134.41" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(134.41,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="133.21" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="144.07" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(144.07,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="142.87" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="153.73" cy="29.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(153.73,34.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="152.53" y="38.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="8.83" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(8.83,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="7.63" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="18.49" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(18.49,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="17.29" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="28.15" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(28.15,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="26.95" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="37.81" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(37.81,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="36.61" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="47.47" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(47.47,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="46.27" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="57.13" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(57.13,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="55.93" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="66.79" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(66.79,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="65.59" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="76.45" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(76.45,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="75.25" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="86.11" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(86.11,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="84.91" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="95.77" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(95.77,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="94.57" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="105.43" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(105.43,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="104.23" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="115.09" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(115.09,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="113.89" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="124.75" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(124.75,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="123.55" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="134.41" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(134.41,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="133.21" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="144.07" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(144.07,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="142.87" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="153.73" cy="44.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(153.73,49.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="152.53" y="53.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="8.83" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(8.83,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="7.63" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="18.49" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(18.49,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="17.29" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="28.15" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(28.15,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="26.95" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="37.81" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(37.81,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="36.61" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="47.47" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(47.47,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="46.27" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="57.13" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(57.13,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="55.93" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="66.79" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(66.79,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="65.59" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="76.45" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(76.45,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="75.25" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="86.11" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(86.11,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="84.91" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="95.77" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(95.77,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="94.57" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="105.43" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(105.43,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="104.23" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="115.09" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(115.09,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="113.89" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="124.75" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(124.75,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="123.55" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="134.41" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(134.41,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="133.21" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="144.07" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(144.07,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="142.87" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="153.73" cy="59.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(153.73,64.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="152.53" y="68.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="8.83" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(8.83,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="7.63" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="18.49" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(18.49,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="17.29" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="28.15" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(28.15,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="26.95" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="37.81" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(37.81,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="36.61" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="47.47" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(47.47,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="46.27" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="57.13" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(57.13,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="55.93" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="66.79" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(66.79,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="65.59" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="76.45" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(76.45,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="75.25" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="86.11" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(86.11,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="84.91" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="95.77" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(95.77,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="94.57" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="105.43" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(105.43,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="104.23" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="115.09" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(115.09,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="113.89" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="124.75" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(124.75,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="123.55" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="134.41" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(134.41,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="133.21" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="144.07" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(144.07,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="142.87" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <circle cx="153.73" cy="74.00" r="1.1" fill="#3a3420" stroke="#1a1810" stroke-width=".2"/>
+  <g transform="translate(153.73,79.70)"><circle r="1.7" fill="url(#knobBody)" stroke="#0a0a0a" stroke-width=".2"/><circle r="1.02" fill="url(#knobCap)"/><line x1="0" y1="-0.94" x2="0" y2="-0.20" stroke="#e8c547" stroke-width=".5" stroke-linecap="round"/></g>
+  <rect x="152.53" y="83.80" width="2.4" height="2" rx="0.4" fill="#2a2a2c" stroke="#0a0a0a" stroke-width=".15"/>
+  <g transform="translate(45.52,100.0)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <text x="45.52" y="106.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">CLK</text>
+  <g transform="translate(89.41,100.0)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <text x="89.41" y="106.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">RST</text>
+  <g transform="translate(35.76,114.0)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <text x="35.76" y="120.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">CV</text>
+  <g transform="translate(81.28,114.0)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <text x="81.28" y="120.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">GATE</text>
+  <g transform="translate(126.80,114.0)"><circle r="3.0" fill="url(#jackRing)"/><circle r="1.4" fill="#111"/></g>
+  <text x="126.80" y="120.5" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="1.35" font-weight="700" fill="#1c1c1c">EOC</text>
+</svg>
