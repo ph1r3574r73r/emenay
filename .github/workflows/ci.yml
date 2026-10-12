@@ -17,11 +17,14 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           submodules: recursive
-      - name: Install C++ toolchain
-        run: sudo apt-get update && sudo apt-get install -y g++
+      - name: Install system deps
+        run: |
+          sudo apt-get update
+          # g++: emenay-mi-host C++ firmware hosts
+          # libasound2-dev: midir → alsa-sys (pkg-config alsa)
+          # ngspice: emenay-spice circuit checks
+          sudo apt-get install -y g++ libasound2-dev pkg-config ngspice
       - uses: dtolnay/rust-toolchain@686976e191b89faba57d3206551f0f330d8cb249 # stable
-      - name: Install ngspice
-        run: sudo apt-get update && sudo apt-get install -y ngspice
       - name: Test
         run: cargo test --workspace --exclude emenay-desktop
       - name: SPICE check
