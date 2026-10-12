@@ -6,12 +6,13 @@ license = "MIT"
 description = "Desktop host for Mutable Instruments Eurorack firmware DSP (MIT)"
 
 [features]
-default = ["mi-facets", "mi-chimes", "mi-twist", "mi-swell", "mi-lots"]
+default = ["mi-facets", "mi-chimes", "mi-twist", "mi-swell", "mi-lots", "mi-twin"]
 mi-facets = []
 mi-chimes = []
 mi-twist = []
 mi-swell = []
 mi-lots = []
+mi-twin = []
 
 [build-dependencies]
 cc = "1"

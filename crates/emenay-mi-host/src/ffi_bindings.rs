@@ -5,6 +5,7 @@ pub enum EmenayChimes {}
 pub enum EmenayTwist {}
 pub enum EmenaySwell {}
 pub enum EmenayLots {}
+pub enum EmenayTwin {}
 
 extern "C" {
     pub fn emenay_facets_new() -> *mut EmenayFacets;
@@ -91,5 +92,23 @@ extern "C" {
         t_mode: c_int,
         x_mode: c_int,
         lights_t: *mut c_float,
+    );
+
+    pub fn emenay_twin_new() -> *mut EmenayTwin;
+    pub fn emenay_twin_delete(p: *mut EmenayTwin);
+    pub fn emenay_twin_reset(p: *mut EmenayTwin);
+    pub fn emenay_twin_process(
+        p: *mut EmenayTwin,
+        inputs: *const c_float,
+        connected: *const c_int,
+        outputs: *mut c_float,
+        mode_a: c_int,
+        mode_b: c_int,
+        p1: c_float,
+        p2: c_float,
+        p3: c_float,
+        p4: c_float,
+        split: c_int,
+        level: c_float,
     );
 }

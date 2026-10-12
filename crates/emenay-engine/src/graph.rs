@@ -211,6 +211,22 @@ impl PatchGraph {
         Ok(())
     }
 
+    /// Map a MIDI CC normalized value (0…1) into a module param’s real range.
+    pub fn map_midi_norm_param(&self, id: ModuleId, name: &str, norm01: f32) -> Option<f32> {
+        let m = self.modules.get(&id)?;
+        let desc = m.module.info().params.iter().find(|p| p.name == name)?;
+        let t = norm01.clamp(0.0, 1.0);
+        if desc.unit == "bool" {
+            return Some(if t >= 0.5 { 1.0 } else { 0.0 });
+        }
+        let v = desc.min + t * (desc.max - desc.min);
+        if desc.unit == "int" {
+            Some(v.round())
+        } else {
+            Some(v)
+        }
+    }
+
     pub fn connect(&mut self, from: PortRef, to: PortRef) -> Result<u64, GraphError> {
         self.validate_port(&from, true)?;
         self.validate_port(&to, false)?;

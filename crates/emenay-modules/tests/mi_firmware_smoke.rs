@@ -1,7 +1,7 @@
 #![cfg(feature = "mi-firmware")]
 
 use emenay_engine::module::Module;
-use emenay_modules::{Lots, Facets, Chimes, Swell, Twist};
+use emenay_modules::{Lots, Facets, Chimes, Swell, Twin, Twist};
 
 #[test]
 fn facets_models_0_and_15_render() {
@@ -103,4 +103,9 @@ fn mi_module_info_matches_panel_ports() {
     assert!(lots.info().inputs.iter().any(|p| p.name == "x_clock"));
     assert!(lots.info().outputs.iter().any(|p| p.name == "y"));
     assert!(lots.info().params.iter().any(|p| p.name == "deja_vu"));
+
+    let twin = Twin::new();
+    assert!(twin.info().inputs.iter().any(|p| p.name == "trig_a"));
+    assert!(twin.info().outputs.iter().any(|p| p.name == "mix"));
+    assert!(twin.info().params.iter().any(|p| p.name == "mode_a"));
 }

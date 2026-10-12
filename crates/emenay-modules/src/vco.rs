@@ -1,6 +1,4 @@
-//! Circuit-inspired VCO (path toward Erica VCO3). Phase accumulator + waveshaping.
-//!
-//! Attribution target: Erica Synths DIY VCO3 (CC-BY-SA-3.0)
+//! Simple phase-accumulator VCO (generic). For Erica DIY VCO3 see `erica_vco3`.
 
 use emenay_engine::module::{Module, ModuleInfo, ParamDesc, PortDesc, PortId, SignalKind};
 use emenay_engine::Voltage;

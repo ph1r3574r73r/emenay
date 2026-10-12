@@ -109,27 +109,47 @@ const fmEnvelope: PanelLayout = {
 const emenayMidiCv: PanelLayout = {
   source: 'emenay fm/midi_cv.svg',
   hits: [
-    { id: 'midi', kind: 'led', ...mm(12, 16.5, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
+    { id: 'midi', kind: 'led', ...mm(10, 16.5, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
     {
       id: 'omni',
       kind: 'toggle',
-      ...mm(23.5, 16.5, FM12.w, FM12.h),
+      ...mm(18, 16.5, FM12.w, FM12.h),
       size: 'sm',
       label: 'OMNI',
       shape: 'rect',
     },
     {
+      id: 'poly',
+      kind: 'toggle',
+      ...mm(28, 16.5, FM12.w, FM12.h),
+      size: 'sm',
+      label: 'POLY',
+      shape: 'rect',
+    },
+    {
+      id: 'voices',
+      kind: 'param',
+      ...mm(38, 16.5, FM12.w, FM12.h),
+      size: 'sm',
+      label: 'VOX',
+      color: KNOB_BLACK,
+    },
+    {
       id: 'bend_range',
       kind: 'param',
-      ...mm(36, 16.5, FM12.w, FM12.h),
+      ...mm(48, 16.5, FM12.w, FM12.h),
       size: 'sm',
       label: 'RANGE',
       color: KNOB_BLACK,
     },
-    { id: 'bend', kind: 'out', ...mm(18, 28, FM12.w, FM12.h), size: 'sm', label: 'BEND' },
-    { id: 'bend', kind: 'led', ...mm(24.5, 28, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
-    { id: 'mod', kind: 'out', ...mm(43, 28, FM12.w, FM12.h), size: 'sm', label: 'MOD' },
-    { id: 'mod', kind: 'led', ...mm(49.5, 28, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'bend', kind: 'out', ...mm(10, 28, FM12.w, FM12.h), size: 'sm', label: 'BEND' },
+    { id: 'bend', kind: 'led', ...mm(15.8, 28, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
+    { id: 'mod', kind: 'out', ...mm(25, 28, FM12.w, FM12.h), size: 'sm', label: 'MOD' },
+    { id: 'mod', kind: 'led', ...mm(30.8, 28, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'at', kind: 'out', ...mm(40, 28, FM12.w, FM12.h), size: 'sm', label: 'AT' },
+    { id: 'at', kind: 'led', ...mm(45.8, 28, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
+    { id: 'sustain', kind: 'out', ...mm(53, 28, FM12.w, FM12.h), size: 'sm', label: 'SUS' },
+    { id: 'sustain', kind: 'led', ...mm(58.2, 28, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
     { id: 'cv1', kind: 'out', ...mm(18, 45.5, FM12.w, FM12.h), size: 'md', label: 'CV1' },
     { id: 'gate1', kind: 'out', ...mm(43, 45.5, FM12.w, FM12.h), size: 'md', label: 'G1' },
     { id: 'gate1', kind: 'led', ...mm(50.2, 45.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
@@ -159,13 +179,13 @@ const emenayMidiCv: PanelLayout = {
 
 /** Free Modular Output (line out only — no headphone jack on plate). */
 const fmOutput: PanelLayout = {
-  source: 'Free Modular output.svg throughholes',
+  source: 'emenay fm/output.svg (Erica DIY Output)',
   hits: [
-    { id: 'level', kind: 'param', ...mm(13.8, 36.05, FM8.w, FM8.h), size: 'md', color: KNOB_BLACK },
-    { id: 'in_l', kind: 'in', ...mm(12.53, 56.37, FM8.w, FM8.h), size: 'md' },
-    { id: 'in_r', kind: 'in', ...mm(27.77, 56.37, FM8.w, FM8.h), size: 'md' },
-    { id: 'line_l', kind: 'out', ...mm(20.15, 75.42, FM8.w, FM8.h), size: 'md' },
-    { id: 'line_r', kind: 'out', ...mm(20.15, 91.93, FM8.w, FM8.h), size: 'md' },
+    { id: 'level', kind: 'param', ...mm(13.8, 36.05, FM8.w, FM8.h), size: 'md', label: 'LEVEL', color: KNOB_BLACK },
+    { id: 'in_l', kind: 'in', ...mm(12.53, 56.37, FM8.w, FM8.h), size: 'md', label: 'IN L' },
+    { id: 'in_r', kind: 'in', ...mm(27.77, 56.37, FM8.w, FM8.h), size: 'md', label: 'IN R' },
+    { id: 'line_l', kind: 'out', ...mm(20.15, 75.42, FM8.w, FM8.h), size: 'md', label: 'LINE L' },
+    { id: 'line_r', kind: 'out', ...mm(20.15, 91.93, FM8.w, FM8.h), size: 'md', label: 'LINE R' },
     // Stereo dB meters: +6 red · +3/0 yellow · −9/−18 green.
     { id: 'meter_l_p6', kind: 'led', ...mm(8.72, 79.23, FM8.w, FM8.h), size: 'sm', color: '#e53935' },
     { id: 'meter_l_p3', kind: 'led', ...mm(8.72, 85.58, FM8.w, FM8.h), size: 'sm', color: '#e8c547' },
@@ -344,6 +364,108 @@ const emenayVcf: PanelLayout = {
   ],
 }
 
+/** Erica DIY VCO3 — hit centers match SVG jack/knob art (same map as VCO). */
+const ericaVco3: PanelLayout = {
+  source: 'emenay fm/erica_vco3.svg',
+  hits: [
+    { id: 'freq', kind: 'param', ...mm(30.48, 27.5, FM12.w, FM12.h), size: 'lg', label: 'TUNE', color: KNOB_BLACK },
+    { id: 'fm_amt', kind: 'param', ...mm(15.5, 51, FM12.w, FM12.h), size: 'md', label: 'FM', color: KNOB_BLACK },
+    { id: 'pwm_amt', kind: 'param', ...mm(15.5, 71, FM12.w, FM12.h), size: 'md', label: 'PWM', color: KNOB_BLACK },
+    { id: 'fm', kind: 'in', ...mm(46.5, 51, FM12.w, FM12.h), size: 'md', label: 'FM IN' },
+    { id: 'pwm', kind: 'in', ...mm(46.5, 67, FM12.w, FM12.h), size: 'md', label: 'PWM IN' },
+    { id: 'sync', kind: 'in', ...mm(46.5, 83, FM12.w, FM12.h), size: 'md', label: 'SYNC' },
+    { id: 'v_oct', kind: 'in', ...mm(10.5, 106.5, FM12.w, FM12.h), size: 'md', label: '1V/OCT' },
+    { id: 'saw', kind: 'out', ...mm(24, 106.5, FM12.w, FM12.h), size: 'md', label: 'SAW' },
+    { id: 'tri', kind: 'out', ...mm(37.5, 106.5, FM12.w, FM12.h), size: 'md', label: 'TRI' },
+    { id: 'sq', kind: 'out', ...mm(50.5, 106.5, FM12.w, FM12.h), size: 'md', label: 'PULSE' },
+  ],
+}
+
+/** Erica DIY Polivoks VCF — hit centers match SVG art. */
+const ericaPolivoksVcf: PanelLayout = {
+  source: 'emenay fm/erica_polivoks_vcf.svg',
+  hits: [
+    { id: 'cutoff', kind: 'param', ...mm(25.4, 28, FM10.w, FM10.h), size: 'lg', label: 'CUTOFF', color: KNOB_BLACK },
+    { id: 'res', kind: 'param', ...mm(14, 54, FM10.w, FM10.h), size: 'md', label: 'RES', color: KNOB_BLACK },
+    { id: 'drive', kind: 'param', ...mm(36.8, 54, FM10.w, FM10.h), size: 'md', label: 'DRIVE', color: KNOB_BLACK },
+    { id: 'in', kind: 'in', ...mm(14, 78, FM10.w, FM10.h), size: 'md', label: 'IN' },
+    { id: 'fm', kind: 'in', ...mm(36.8, 78, FM10.w, FM10.h), size: 'md', label: 'CV' },
+    { id: 'res_cv', kind: 'in', ...mm(14, 94, FM10.w, FM10.h), size: 'md', label: 'RES CV' },
+    { id: 'lp', kind: 'out', ...mm(14, 110, FM10.w, FM10.h), size: 'md', label: 'LP' },
+    { id: 'bp', kind: 'out', ...mm(36.8, 110, FM10.w, FM10.h), size: 'md', label: 'BP' },
+  ],
+}
+
+/** Erica DIY Modulator — LFO + noise + S&H; hits match SVG art. */
+const ericaModulator: PanelLayout = {
+  source: 'emenay fm/erica_modulator.svg',
+  hits: [
+    { id: 'rate', kind: 'param', ...mm(18, 30, FM12.w, FM12.h), size: 'lg', label: 'RATE', color: KNOB_BLACK },
+    { id: 'shape', kind: 'param', ...mm(43, 30, FM12.w, FM12.h), size: 'lg', label: 'SHAPE', color: KNOB_BLACK },
+    { id: 'noise_lvl', kind: 'param', ...mm(18, 58, FM12.w, FM12.h), size: 'md', label: 'NOISE', color: KNOB_BLACK },
+    { id: 'slew', kind: 'param', ...mm(43, 58, FM12.w, FM12.h), size: 'md', label: 'SLEW', color: KNOB_BLACK },
+    { id: 'rate_cv', kind: 'in', ...mm(12, 86, FM12.w, FM12.h), size: 'md', label: 'RATE' },
+    { id: 'reset', kind: 'in', ...mm(30.48, 86, FM12.w, FM12.h), size: 'md', label: 'RESET' },
+    { id: 'clock', kind: 'in', ...mm(49, 86, FM12.w, FM12.h), size: 'md', label: 'CLK' },
+    { id: 'sh_in', kind: 'in', ...mm(12, 108, FM12.w, FM12.h), size: 'md', label: 'S&H IN' },
+    { id: 'lfo', kind: 'out', ...mm(30.48, 108, FM12.w, FM12.h), size: 'md', label: 'LFO' },
+    { id: 'noise', kind: 'out', ...mm(40.5, 108, FM12.w, FM12.h), size: 'md', label: 'NOISE' },
+    { id: 'sh', kind: 'out', ...mm(50.5, 108, FM12.w, FM12.h), size: 'md', label: 'S&H' },
+  ],
+}
+
+/** Erica DIY Bassline — acid voice; hits match SVG art. */
+const ericaBassline: PanelLayout = {
+  source: 'emenay fm/erica_bassline.svg',
+  hits: [
+    { id: 'tune', kind: 'param', ...mm(20, 32, FM16.w, FM16.h), size: 'lg', label: 'TUNE', color: KNOB_BLACK },
+    { id: 'cutoff', kind: 'param', ...mm(40.64, 32, FM16.w, FM16.h), size: 'lg', label: 'CUTOFF', color: KNOB_BLACK },
+    { id: 'res', kind: 'param', ...mm(61.5, 32, FM16.w, FM16.h), size: 'lg', label: 'RES', color: KNOB_BLACK },
+    { id: 'decay', kind: 'param', ...mm(20, 62, FM16.w, FM16.h), size: 'md', label: 'DECAY', color: KNOB_BLACK },
+    { id: 'accent', kind: 'param', ...mm(40.64, 62, FM16.w, FM16.h), size: 'md', label: 'ACCENT', color: KNOB_BLACK },
+    { id: 'drive', kind: 'param', ...mm(61.5, 62, FM16.w, FM16.h), size: 'md', label: 'DRIVE', color: KNOB_BLACK },
+    { id: 'v_oct', kind: 'in', ...mm(14, 92, FM16.w, FM16.h), size: 'md', label: '1V/OCT' },
+    { id: 'gate', kind: 'in', ...mm(32, 92, FM16.w, FM16.h), size: 'md', label: 'GATE' },
+    { id: 'accent_gate', kind: 'in', ...mm(50, 92, FM16.w, FM16.h), size: 'md', label: 'ACC' },
+    { id: 'cutoff_cv', kind: 'in', ...mm(68, 92, FM16.w, FM16.h), size: 'md', label: 'CUT CV' },
+    { id: 'out', kind: 'out', ...mm(40.64, 112, FM16.w, FM16.h), size: 'md', label: 'OUT' },
+  ],
+}
+
+/** Erica DIY BBD — delay/flanger; hits match SVG art. */
+const ericaBbd: PanelLayout = {
+  source: 'emenay fm/erica_bbd.svg',
+  hits: [
+    { id: 'time', kind: 'param', ...mm(25.4, 30, FM10.w, FM10.h), size: 'lg', label: 'TIME', color: KNOB_BLACK },
+    { id: 'feedback', kind: 'param', ...mm(14, 58, FM10.w, FM10.h), size: 'md', label: 'FB', color: KNOB_BLACK },
+    { id: 'mix', kind: 'param', ...mm(36.8, 58, FM10.w, FM10.h), size: 'md', label: 'MIX', color: KNOB_BLACK },
+    { id: 'colour', kind: 'param', ...mm(14, 80, FM10.w, FM10.h), size: 'md', label: 'COLOUR', color: KNOB_BLACK },
+    { id: 'mod_rate', kind: 'param', ...mm(36.8, 80, FM10.w, FM10.h), size: 'md', label: 'MOD', color: KNOB_BLACK },
+    { id: 'in', kind: 'in', ...mm(10, 104, FM10.w, FM10.h), size: 'md', label: 'IN' },
+    { id: 'time_cv', kind: 'in', ...mm(25.4, 104, FM10.w, FM10.h), size: 'md', label: 'TIME' },
+    { id: 'inhibit', kind: 'in', ...mm(40.8, 104, FM10.w, FM10.h), size: 'md', label: 'INH' },
+    { id: 'wet', kind: 'out', ...mm(14, 118, FM10.w, FM10.h), size: 'md', label: 'WET' },
+    { id: 'mix_out', kind: 'out', ...mm(36.8, 118, FM10.w, FM10.h), size: 'md', label: 'MIX' },
+  ],
+}
+
+/** Erica DIY Swamp — chaos / random CV; hits match SVG art. */
+const ericaSwamp: PanelLayout = {
+  source: 'emenay fm/erica_swamp.svg',
+  hits: [
+    { id: 'rate', kind: 'param', ...mm(18, 32, FM12.w, FM12.h), size: 'lg', label: 'RATE', color: KNOB_BLACK },
+    { id: 'chaos', kind: 'param', ...mm(43, 32, FM12.w, FM12.h), size: 'lg', label: 'CHAOS', color: KNOB_BLACK },
+    { id: 'lag', kind: 'param', ...mm(30.48, 62, FM12.w, FM12.h), size: 'md', label: 'LAG', color: KNOB_BLACK },
+    { id: 'rate_cv', kind: 'in', ...mm(12, 90, FM12.w, FM12.h), size: 'md', label: 'RATE' },
+    { id: 'chaos_cv', kind: 'in', ...mm(30.48, 90, FM12.w, FM12.h), size: 'md', label: 'CHAOS' },
+    { id: 'clock', kind: 'in', ...mm(49, 90, FM12.w, FM12.h), size: 'md', label: 'CLK' },
+    { id: 'stepped', kind: 'out', ...mm(10, 110, FM12.w, FM12.h), size: 'md', label: 'STEP' },
+    { id: 'smooth', kind: 'out', ...mm(23.5, 110, FM12.w, FM12.h), size: 'md', label: 'SMOOTH' },
+    { id: 'burst', kind: 'out', ...mm(37.5, 110, FM12.w, FM12.h), size: 'md', label: 'BURST' },
+    { id: 'noise', kind: 'out', ...mm(51, 110, FM12.w, FM12.h), size: 'md', label: 'NOISE' },
+  ],
+}
+
 /** emenay Noise faceplate. */
 const emenayNoise: PanelLayout = {
   source: 'emenay fm/noise.svg',
@@ -416,39 +538,39 @@ const emenayDivider: PanelLayout = {
   ],
 }
 
-/** emenay 8-step Sequencer — open 2×4 pots + gate pads (original rhythm). */
+/** emenay 8-step Sequencer — room under pots for pitch silk, gates clear of jacks. */
 const emenaySequencer: PanelLayout = {
   source: 'emenay fm/sequencer.svg',
   hits: [
-    { id: 'length', kind: 'param', ...mm(14, 26, FM12.w, FM12.h), size: 'md', label: 'LEN', color: KNOB_BLACK },
-    { id: 'glide', kind: 'param', ...mm(30.48, 26, FM12.w, FM12.h), size: 'md', label: 'GLIDE', color: KNOB_BLACK },
-    { id: 'step', kind: 'digit', ...mm(47, 26, FM12.w, FM12.h), size: 'sm', digits: 1, color: '#e8c547' },
-    { id: 's1', kind: 'param', ...mm(10, 48, FM12.w, FM12.h), size: 'sm', label: '1', color: KNOB_BLACK },
-    { id: 's2', kind: 'param', ...mm(23.5, 48, FM12.w, FM12.h), size: 'sm', label: '2', color: KNOB_BLACK },
-    { id: 's3', kind: 'param', ...mm(37, 48, FM12.w, FM12.h), size: 'sm', label: '3', color: KNOB_BLACK },
-    { id: 's4', kind: 'param', ...mm(50.5, 48, FM12.w, FM12.h), size: 'sm', label: '4', color: KNOB_BLACK },
-    { id: 'g1', kind: 'toggle', ...mm(10, 58, FM12.w, FM12.h), size: 'sm', label: 'G1' },
-    { id: 'g2', kind: 'toggle', ...mm(23.5, 58, FM12.w, FM12.h), size: 'sm', label: 'G2' },
-    { id: 'g3', kind: 'toggle', ...mm(37, 58, FM12.w, FM12.h), size: 'sm', label: 'G3' },
-    { id: 'g4', kind: 'toggle', ...mm(50.5, 58, FM12.w, FM12.h), size: 'sm', label: 'G4' },
-    { id: 'led1', kind: 'led', ...mm(10, 41.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led2', kind: 'led', ...mm(23.5, 41.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led3', kind: 'led', ...mm(37, 41.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led4', kind: 'led', ...mm(50.5, 41.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 's5', kind: 'param', ...mm(10, 72, FM12.w, FM12.h), size: 'sm', label: '5', color: KNOB_BLACK },
-    { id: 's6', kind: 'param', ...mm(23.5, 72, FM12.w, FM12.h), size: 'sm', label: '6', color: KNOB_BLACK },
-    { id: 's7', kind: 'param', ...mm(37, 72, FM12.w, FM12.h), size: 'sm', label: '7', color: KNOB_BLACK },
-    { id: 's8', kind: 'param', ...mm(50.5, 72, FM12.w, FM12.h), size: 'sm', label: '8', color: KNOB_BLACK },
-    { id: 'g5', kind: 'toggle', ...mm(10, 82, FM12.w, FM12.h), size: 'sm', label: 'G5' },
-    { id: 'g6', kind: 'toggle', ...mm(23.5, 82, FM12.w, FM12.h), size: 'sm', label: 'G6' },
-    { id: 'g7', kind: 'toggle', ...mm(37, 82, FM12.w, FM12.h), size: 'sm', label: 'G7' },
-    { id: 'g8', kind: 'toggle', ...mm(50.5, 82, FM12.w, FM12.h), size: 'sm', label: 'G8' },
-    { id: 'led5', kind: 'led', ...mm(10, 65.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led6', kind: 'led', ...mm(23.5, 65.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led7', kind: 'led', ...mm(37, 65.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'led8', kind: 'led', ...mm(50.5, 65.5, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
-    { id: 'clock', kind: 'in', ...mm(18, 96, FM12.w, FM12.h), size: 'md', label: 'CLK' },
-    { id: 'reset', kind: 'in', ...mm(42, 96, FM12.w, FM12.h), size: 'md', label: 'RST' },
+    { id: 'length', kind: 'param', ...mm(14, 22, FM12.w, FM12.h), size: 'md', label: 'LEN', color: KNOB_BLACK },
+    { id: 'glide', kind: 'param', ...mm(30.48, 22, FM12.w, FM12.h), size: 'md', label: 'GLIDE', color: KNOB_BLACK },
+    { id: 'step', kind: 'digit', ...mm(47, 22, FM12.w, FM12.h), size: 'sm', digits: 1, color: '#e8c547' },
+    { id: 'led1', kind: 'led', ...mm(10, 36, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led2', kind: 'led', ...mm(23.5, 36, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led3', kind: 'led', ...mm(37, 36, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led4', kind: 'led', ...mm(50.5, 36, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 's1', kind: 'param', ...mm(10, 44, FM12.w, FM12.h), size: 'sm', label: '1', color: KNOB_BLACK },
+    { id: 's2', kind: 'param', ...mm(23.5, 44, FM12.w, FM12.h), size: 'sm', label: '2', color: KNOB_BLACK },
+    { id: 's3', kind: 'param', ...mm(37, 44, FM12.w, FM12.h), size: 'sm', label: '3', color: KNOB_BLACK },
+    { id: 's4', kind: 'param', ...mm(50.5, 44, FM12.w, FM12.h), size: 'sm', label: '4', color: KNOB_BLACK },
+    { id: 'g1', kind: 'toggle', ...mm(10, 56, FM12.w, FM12.h), size: 'sm', label: 'G1', shape: 'circle' },
+    { id: 'g2', kind: 'toggle', ...mm(23.5, 56, FM12.w, FM12.h), size: 'sm', label: 'G2', shape: 'circle' },
+    { id: 'g3', kind: 'toggle', ...mm(37, 56, FM12.w, FM12.h), size: 'sm', label: 'G3', shape: 'circle' },
+    { id: 'g4', kind: 'toggle', ...mm(50.5, 56, FM12.w, FM12.h), size: 'sm', label: 'G4', shape: 'circle' },
+    { id: 'led5', kind: 'led', ...mm(10, 66, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led6', kind: 'led', ...mm(23.5, 66, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led7', kind: 'led', ...mm(37, 66, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'led8', kind: 'led', ...mm(50.5, 66, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 's5', kind: 'param', ...mm(10, 74, FM12.w, FM12.h), size: 'sm', label: '5', color: KNOB_BLACK },
+    { id: 's6', kind: 'param', ...mm(23.5, 74, FM12.w, FM12.h), size: 'sm', label: '6', color: KNOB_BLACK },
+    { id: 's7', kind: 'param', ...mm(37, 74, FM12.w, FM12.h), size: 'sm', label: '7', color: KNOB_BLACK },
+    { id: 's8', kind: 'param', ...mm(50.5, 74, FM12.w, FM12.h), size: 'sm', label: '8', color: KNOB_BLACK },
+    { id: 'g5', kind: 'toggle', ...mm(10, 86, FM12.w, FM12.h), size: 'sm', label: 'G5', shape: 'circle' },
+    { id: 'g6', kind: 'toggle', ...mm(23.5, 86, FM12.w, FM12.h), size: 'sm', label: 'G6', shape: 'circle' },
+    { id: 'g7', kind: 'toggle', ...mm(37, 86, FM12.w, FM12.h), size: 'sm', label: 'G7', shape: 'circle' },
+    { id: 'g8', kind: 'toggle', ...mm(50.5, 86, FM12.w, FM12.h), size: 'sm', label: 'G8', shape: 'circle' },
+    { id: 'clock', kind: 'in', ...mm(18, 100, FM12.w, FM12.h), size: 'md', label: 'CLK' },
+    { id: 'reset', kind: 'in', ...mm(42, 100, FM12.w, FM12.h), size: 'md', label: 'RST' },
     { id: 'cv', kind: 'out', ...mm(12, 114, FM12.w, FM12.h), size: 'md', label: 'CV' },
     { id: 'gate', kind: 'out', ...mm(30.48, 114, FM12.w, FM12.h), size: 'md', label: 'GATE' },
     { id: 'eoc', kind: 'out', ...mm(49, 114, FM12.w, FM12.h), size: 'md', label: 'EOC' },
@@ -459,9 +581,17 @@ const emenaySequencer: PanelLayout = {
 const emenaySequencer16: PanelLayout = {
   source: 'emenay fm/sequencer16.svg',
   hits: [
-    { id: 'length', kind: 'param', ...mm(18, 24, FM16.w, FM16.h), size: 'md', label: 'LEN', color: KNOB_BLACK },
-    { id: 'glide', kind: 'param', ...mm(36, 24, FM16.w, FM16.h), size: 'md', label: 'GLIDE', color: KNOB_BLACK },
-    { id: 'step', kind: 'digit', ...mm(62, 24, FM16.w, FM16.h), size: 'md', digits: 2, color: '#e8c547' },
+    { id: 'length', kind: 'param', ...mm(18, 20, FM16.w, FM16.h), size: 'md', label: 'LEN', color: KNOB_BLACK },
+    { id: 'glide', kind: 'param', ...mm(36, 20, FM16.w, FM16.h), size: 'md', label: 'GLIDE', color: KNOB_BLACK },
+    { id: 'step', kind: 'digit', ...mm(62, 20, FM16.w, FM16.h), size: 'md', digits: 2, color: '#e8c547' },
+    // leds 1–8
+    ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
+      id: `led${i + 1}`,
+      kind: 'led' as const,
+      ...mm(x, 34, FM16.w, FM16.h),
+      size: 'sm' as const,
+      color: '#e8c547',
+    })),
     // pots 1–8
     ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
       id: `s${i + 1}`,
@@ -471,19 +601,20 @@ const emenaySequencer16: PanelLayout = {
       label: `${i + 1}`,
       color: KNOB_BLACK,
     })),
-    // gates 1–8
+    // gates 1–8 — 12mm under pots so pitch silk fits
     ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
       id: `g${i + 1}`,
       kind: 'toggle' as const,
-      ...mm(x, 51.3, FM16.w, FM16.h),
+      ...mm(x, 54, FM16.w, FM16.h),
       size: 'sm' as const,
       label: `G${i + 1}`,
+      shape: 'circle' as const,
     })),
-    // leds 1–8
+    // leds 9–16
     ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
-      id: `led${i + 1}`,
+      id: `led${i + 9}`,
       kind: 'led' as const,
-      ...mm(x, 36.5, FM16.w, FM16.h),
+      ...mm(x, 64, FM16.w, FM16.h),
       size: 'sm' as const,
       color: '#e8c547',
     })),
@@ -491,7 +622,7 @@ const emenaySequencer16: PanelLayout = {
     ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
       id: `s${i + 9}`,
       kind: 'param' as const,
-      ...mm(x, 68, FM16.w, FM16.h),
+      ...mm(x, 72, FM16.w, FM16.h),
       size: 'sm' as const,
       label: `${i + 9}`,
       color: KNOB_BLACK,
@@ -500,20 +631,13 @@ const emenaySequencer16: PanelLayout = {
     ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
       id: `g${i + 9}`,
       kind: 'toggle' as const,
-      ...mm(x, 77.3, FM16.w, FM16.h),
+      ...mm(x, 84, FM16.w, FM16.h),
       size: 'sm' as const,
       label: `G${i + 9}`,
+      shape: 'circle' as const,
     })),
-    // leds 9–16
-    ...[7, 16.5, 26, 35.5, 45, 54.5, 64, 73.5].map((x, i) => ({
-      id: `led${i + 9}`,
-      kind: 'led' as const,
-      ...mm(x, 62.5, FM16.w, FM16.h),
-      size: 'sm' as const,
-      color: '#e8c547',
-    })),
-    { id: 'clock', kind: 'in', ...mm(26, 96, FM16.w, FM16.h), size: 'md', label: 'CLK' },
-    { id: 'reset', kind: 'in', ...mm(55, 96, FM16.w, FM16.h), size: 'md', label: 'RST' },
+    { id: 'clock', kind: 'in', ...mm(26, 100, FM16.w, FM16.h), size: 'md', label: 'CLK' },
+    { id: 'reset', kind: 'in', ...mm(55, 100, FM16.w, FM16.h), size: 'md', label: 'RST' },
     { id: 'cv', kind: 'out', ...mm(18, 114, FM16.w, FM16.h), size: 'md', label: 'CV' },
     { id: 'gate', kind: 'out', ...mm(40.64, 114, FM16.w, FM16.h), size: 'md', label: 'GATE' },
     { id: 'eoc', kind: 'out', ...mm(63, 114, FM16.w, FM16.h), size: 'md', label: 'EOC' },
@@ -532,9 +656,10 @@ function seqStepBank(
   const hits: PanelHit[] = []
   for (let r = 0; r < rows; r++) {
     const by = bank0 + r * bankH
-    const ledY = by
-    const potY = by + bankH * 0.38
-    const gateY = by + bankH * 0.72
+    // led → pot → pitch silk → gate (wider pot/gate gap than before)
+    const ledY = by + bankH * 0.06
+    const potY = by + bankH * 0.32
+    const gateY = by + bankH * 0.84
     for (let c = 0; c < cols; c++) {
       const i = r * cols + c + 1
       const x = xs[c]!
@@ -566,9 +691,9 @@ function seqStepBank(
   return hits
 }
 
-/** Shared vertical packing for 32/64 sequencers — keeps last-row gates clear of jacks. */
-const SEQ_LONG_BANK0 = 29
-const SEQ_LONG_BANK_H = 15
+/** Shared vertical packing for 32/64 sequencers — last-row gates clear of jacks. */
+const SEQ_LONG_BANK0 = 28
+const SEQ_LONG_BANK_H = 16.5
 
 /** emenay 32-step Sequencer (26HP, 4×8). */
 const emenaySequencer32: PanelLayout = {
@@ -606,11 +731,11 @@ const emenaySequencer32: PanelLayout = {
       SEQ_LONG_BANK0,
       SEQ_LONG_BANK_H,
     ),
-    { id: 'clock', kind: 'in', ...mm(36.98, 100, FM26.w, FM26.h), size: 'md', label: 'CLK' },
-    { id: 'reset', kind: 'in', ...mm(72.64, 100, FM26.w, FM26.h), size: 'md', label: 'RST' },
-    { id: 'cv', kind: 'out', ...mm(29.06, 114, FM26.w, FM26.h), size: 'md', label: 'CV' },
-    { id: 'gate', kind: 'out', ...mm(66.04, 114, FM26.w, FM26.h), size: 'md', label: 'GATE' },
-    { id: 'eoc', kind: 'out', ...mm(103.02, 114, FM26.w, FM26.h), size: 'md', label: 'EOC' },
+    { id: 'clock', kind: 'in', ...mm(36.98, 102, FM26.w, FM26.h), size: 'md', label: 'CLK' },
+    { id: 'reset', kind: 'in', ...mm(72.64, 102, FM26.w, FM26.h), size: 'md', label: 'RST' },
+    { id: 'cv', kind: 'out', ...mm(29.06, 115, FM26.w, FM26.h), size: 'md', label: 'CV' },
+    { id: 'gate', kind: 'out', ...mm(66.04, 115, FM26.w, FM26.h), size: 'md', label: 'GATE' },
+    { id: 'eoc', kind: 'out', ...mm(103.02, 115, FM26.w, FM26.h), size: 'md', label: 'EOC' },
   ],
 }
 
@@ -653,11 +778,11 @@ const emenaySequencer64: PanelLayout = {
       SEQ_LONG_BANK0,
       SEQ_LONG_BANK_H,
     ),
-    { id: 'clock', kind: 'in', ...mm(45.52, 100, FM32.w, FM32.h), size: 'md', label: 'CLK' },
-    { id: 'reset', kind: 'in', ...mm(89.41, 100, FM32.w, FM32.h), size: 'md', label: 'RST' },
-    { id: 'cv', kind: 'out', ...mm(35.76, 114, FM32.w, FM32.h), size: 'md', label: 'CV' },
-    { id: 'gate', kind: 'out', ...mm(81.28, 114, FM32.w, FM32.h), size: 'md', label: 'GATE' },
-    { id: 'eoc', kind: 'out', ...mm(126.8, 114, FM32.w, FM32.h), size: 'md', label: 'EOC' },
+    { id: 'clock', kind: 'in', ...mm(45.52, 102, FM32.w, FM32.h), size: 'md', label: 'CLK' },
+    { id: 'reset', kind: 'in', ...mm(89.41, 102, FM32.w, FM32.h), size: 'md', label: 'RST' },
+    { id: 'cv', kind: 'out', ...mm(35.76, 115, FM32.w, FM32.h), size: 'md', label: 'CV' },
+    { id: 'gate', kind: 'out', ...mm(81.28, 115, FM32.w, FM32.h), size: 'md', label: 'GATE' },
+    { id: 'eoc', kind: 'out', ...mm(126.8, 115, FM32.w, FM32.h), size: 'md', label: 'EOC' },
   ],
 }
 
@@ -705,6 +830,30 @@ const emenayLots: PanelLayout = {
     { id: 'x2', kind: 'out', ...mm(32, 116, FM18.w, FM18.h), size: 'sm', label: 'X2' },
     { id: 'x3', kind: 'out', ...mm(48.5, 116, FM18.w, FM18.h), size: 'sm', label: 'X3' },
     { id: 'y', kind: 'out', ...mm(68, 116, FM18.w, FM18.h), size: 'sm', label: 'Y' },
+  ],
+}
+
+/** Twin — dual Peaks (EG / LFO / 808 drums). */
+const emenayTwin: PanelLayout = {
+  source: 'emenay fm/twin.svg',
+  hits: [
+    { id: 'mode_a', kind: 'param', ...mm(12, 28, EM8.w, EM8.h), size: 'sm', label: 'MODE A', color: KNOB_BLACK },
+    { id: 'mode_a', kind: 'digit', ...mm(12, 20, EM8.w, EM8.h), size: 'sm', digits: 1, color: '#e8c547' },
+    { id: 'mode_b', kind: 'param', ...mm(28.5, 28, EM8.w, EM8.h), size: 'sm', label: 'MODE B', color: KNOB_BLACK },
+    { id: 'mode_b', kind: 'digit', ...mm(28.5, 20, EM8.w, EM8.h), size: 'sm', digits: 1, color: '#e8c547' },
+    { id: 'p1', kind: 'param', ...mm(12, 50, EM8.w, EM8.h), size: 'md', label: 'P1', color: KNOB_BLACK },
+    { id: 'p2', kind: 'param', ...mm(28.5, 50, EM8.w, EM8.h), size: 'md', label: 'P2', color: KNOB_BLACK },
+    { id: 'p3', kind: 'param', ...mm(12, 72, EM8.w, EM8.h), size: 'md', label: 'P3', color: KNOB_BLACK },
+    { id: 'p4', kind: 'param', ...mm(28.5, 72, EM8.w, EM8.h), size: 'md', label: 'P4', color: KNOB_BLACK },
+    { id: 'split', kind: 'param', ...mm(12, 92, EM8.w, EM8.h), size: 'sm', label: 'SPLIT', color: KNOB_BLACK },
+    { id: 'level', kind: 'param', ...mm(28.5, 92, EM8.w, EM8.h), size: 'sm', label: 'LEVEL', color: KNOB_BLACK },
+    { id: 'trig_a', kind: 'in', ...mm(10, 110, EM8.w, EM8.h), size: 'sm', label: 'TRIG A' },
+    { id: 'trig_b', kind: 'in', ...mm(30.5, 110, EM8.w, EM8.h), size: 'sm', label: 'TRIG B' },
+    { id: 'out_a', kind: 'out', ...mm(8, 122, EM8.w, EM8.h), size: 'sm', label: 'A' },
+    { id: 'out_b', kind: 'out', ...mm(20.32, 122, EM8.w, EM8.h), size: 'sm', label: 'B' },
+    { id: 'mix', kind: 'out', ...mm(32.5, 122, EM8.w, EM8.h), size: 'sm', label: 'MIX' },
+    { id: 'a', kind: 'led', ...mm(16, 110, EM8.w, EM8.h), size: 'sm' },
+    { id: 'b', kind: 'led', ...mm(24.5, 110, EM8.w, EM8.h), size: 'sm' },
   ],
 }
 
@@ -820,6 +969,79 @@ const emenayWasp: PanelLayout = {
   ],
 }
 
+/** 8 assignable MIDI CC → CV outs. */
+const emenayMidiCc: PanelLayout = {
+  source: 'emenay fm/midi_cc.svg',
+  hits: [
+    { id: 'cc_num_1', kind: 'param', ...mm(10, 24, EM8.w, EM8.h), size: 'sm', label: '#1', color: KNOB_BLACK },
+    { id: 'cc1', kind: 'out', ...mm(30, 24, EM8.w, EM8.h), size: 'sm', label: 'CC1' },
+    { id: 'cc1', kind: 'led', ...mm(35.5, 24, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_2', kind: 'param', ...mm(10, 36.5, EM8.w, EM8.h), size: 'sm', label: '#2', color: KNOB_BLACK },
+    { id: 'cc2', kind: 'out', ...mm(30, 36.5, EM8.w, EM8.h), size: 'sm', label: 'CC2' },
+    { id: 'cc2', kind: 'led', ...mm(35.5, 36.5, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_3', kind: 'param', ...mm(10, 49, EM8.w, EM8.h), size: 'sm', label: '#3', color: KNOB_BLACK },
+    { id: 'cc3', kind: 'out', ...mm(30, 49, EM8.w, EM8.h), size: 'sm', label: 'CC3' },
+    { id: 'cc3', kind: 'led', ...mm(35.5, 49, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_4', kind: 'param', ...mm(10, 61.5, EM8.w, EM8.h), size: 'sm', label: '#4', color: KNOB_BLACK },
+    { id: 'cc4', kind: 'out', ...mm(30, 61.5, EM8.w, EM8.h), size: 'sm', label: 'CC4' },
+    { id: 'cc4', kind: 'led', ...mm(35.5, 61.5, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_5', kind: 'param', ...mm(10, 74, EM8.w, EM8.h), size: 'sm', label: '#5', color: KNOB_BLACK },
+    { id: 'cc5', kind: 'out', ...mm(30, 74, EM8.w, EM8.h), size: 'sm', label: 'CC5' },
+    { id: 'cc5', kind: 'led', ...mm(35.5, 74, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_6', kind: 'param', ...mm(10, 86.5, EM8.w, EM8.h), size: 'sm', label: '#6', color: KNOB_BLACK },
+    { id: 'cc6', kind: 'out', ...mm(30, 86.5, EM8.w, EM8.h), size: 'sm', label: 'CC6' },
+    { id: 'cc6', kind: 'led', ...mm(35.5, 86.5, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_7', kind: 'param', ...mm(10, 99, EM8.w, EM8.h), size: 'sm', label: '#7', color: KNOB_BLACK },
+    { id: 'cc7', kind: 'out', ...mm(30, 99, EM8.w, EM8.h), size: 'sm', label: 'CC7' },
+    { id: 'cc7', kind: 'led', ...mm(35.5, 99, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'cc_num_8', kind: 'param', ...mm(10, 111.5, EM8.w, EM8.h), size: 'sm', label: '#8', color: KNOB_BLACK },
+    { id: 'cc8', kind: 'out', ...mm(30, 111.5, EM8.w, EM8.h), size: 'sm', label: 'CC8' },
+    { id: 'cc8', kind: 'led', ...mm(35.5, 111.5, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+  ],
+}
+
+/** MIDI note → drum gates (GM pad map). */
+const emenayMidiPads: PanelLayout = {
+  source: 'emenay fm/midi_pads.svg',
+  hits: [
+    { id: 'note_1', kind: 'param', ...mm(12, 32, EM8.w, EM8.h), size: 'md', label: 'N1', color: KNOB_BLACK },
+    { id: 'bd', kind: 'out', ...mm(29, 32, EM8.w, EM8.h), size: 'md', label: 'BD' },
+    { id: 'bd', kind: 'led', ...mm(35.2, 32, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'note_2', kind: 'param', ...mm(12, 56, EM8.w, EM8.h), size: 'md', label: 'N2', color: KNOB_BLACK },
+    { id: 'sd', kind: 'out', ...mm(29, 56, EM8.w, EM8.h), size: 'md', label: 'SD' },
+    { id: 'sd', kind: 'led', ...mm(35.2, 56, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'note_3', kind: 'param', ...mm(12, 80, EM8.w, EM8.h), size: 'md', label: 'N3', color: KNOB_BLACK },
+    { id: 'ch', kind: 'out', ...mm(29, 80, EM8.w, EM8.h), size: 'md', label: 'CH' },
+    { id: 'ch', kind: 'led', ...mm(35.2, 80, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+    { id: 'note_4', kind: 'param', ...mm(12, 104, EM8.w, EM8.h), size: 'md', label: 'N4', color: KNOB_BLACK },
+    { id: 'oh', kind: 'out', ...mm(29, 104, EM8.w, EM8.h), size: 'md', label: 'OH' },
+    { id: 'oh', kind: 'led', ...mm(35.2, 104, EM8.w, EM8.h), size: 'sm', color: '#e8c547' },
+  ],
+}
+
+/** emenay 4-voice MIDI polysynth. */
+const emenayPolysynth: PanelLayout = {
+  source: 'emenay fm/polysynth.svg',
+  hits: [
+    { id: 'v1', kind: 'led', ...mm(18, 20, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'v2', kind: 'led', ...mm(26, 20, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'v3', kind: 'led', ...mm(34, 20, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'v4', kind: 'led', ...mm(42, 20, FM12.w, FM12.h), size: 'sm', color: '#e8c547' },
+    { id: 'tune', kind: 'param', ...mm(18, 36, FM12.w, FM12.h), size: 'md', label: 'TUNE', color: KNOB_BLACK },
+    { id: 'shape', kind: 'param', ...mm(42, 36, FM12.w, FM12.h), size: 'md', label: 'SHAPE', color: KNOB_BLACK },
+    { id: 'cutoff', kind: 'param', ...mm(18, 58, FM12.w, FM12.h), size: 'md', label: 'CUTOFF', color: KNOB_BLACK },
+    { id: 'detune', kind: 'param', ...mm(42, 58, FM12.w, FM12.h), size: 'md', label: 'DETUNE', color: KNOB_BLACK },
+    { id: 'attack', kind: 'param', ...mm(14, 80, FM12.w, FM12.h), size: 'md', label: 'A', color: ENV_A },
+    { id: 'release', kind: 'param', ...mm(30.48, 80, FM12.w, FM12.h), size: 'md', label: 'R', color: ENV_R },
+    { id: 'level', kind: 'param', ...mm(47, 80, FM12.w, FM12.h), size: 'md', label: 'LEVEL', color: KNOB_BLACK },
+    { id: 'cutoff_cv', kind: 'in', ...mm(14, 100, FM12.w, FM12.h), size: 'md', label: 'CUT CV' },
+    { id: 'shape_cv', kind: 'in', ...mm(30.48, 100, FM12.w, FM12.h), size: 'md', label: 'SHAPE' },
+    { id: 'level', kind: 'led', ...mm(47, 100, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
+    { id: 'out', kind: 'out', ...mm(20, 116, FM12.w, FM12.h), size: 'md', label: 'OUT L' },
+    { id: 'out_r', kind: 'out', ...mm(40, 116, FM12.w, FM12.h), size: 'md', label: 'OUT R' },
+  ],
+}
+
 /** emenay AR envelope. */
 const emenayAr: PanelLayout = {
   source: 'emenay fm/ar.svg',
@@ -877,7 +1099,28 @@ const emenayDrums: PanelLayout = {
   ],
 }
 
-/** emenay BitBoy / Game Boy LSDJ–inspired chiptune osc. */
+/** Beat — Click2-style pattern + lane mixer (edit lanes when selected). */
+const emenayBeat: PanelLayout = {
+  source: 'emenay fm/beat.svg',
+  hits: [
+    { id: 'pattern', kind: 'param', ...mm(18, 30, FM12.w, FM12.h), size: 'md', label: 'PATTERN', color: KNOB_BLACK },
+    { id: 'pattern', kind: 'digit', ...mm(18, 20, FM12.w, FM12.h), size: 'sm', digits: 2, color: '#e8c547' },
+    { id: 'swing', kind: 'param', ...mm(43, 30, FM12.w, FM12.h), size: 'md', label: 'SWING', color: KNOB_BLACK },
+    { id: 'level', kind: 'param', ...mm(30.48, 54, FM12.w, FM12.h), size: 'md', label: 'LEVEL', color: KNOB_BLACK },
+    { id: 'run', kind: 'led', ...mm(30.48, 68, FM12.w, FM12.h), size: 'sm', color: '#6adf8a' },
+    { id: 'clock', kind: 'in', ...mm(18, 78, FM12.w, FM12.h), size: 'md', label: 'CLK' },
+    { id: 'reset', kind: 'in', ...mm(43, 78, FM12.w, FM12.h), size: 'md', label: 'RST' },
+    { id: 'bd_g', kind: 'out', ...mm(12, 98, FM12.w, FM12.h), size: 'sm', label: 'BD' },
+    { id: 'sd_g', kind: 'out', ...mm(24, 98, FM12.w, FM12.h), size: 'sm', label: 'SD' },
+    { id: 'ch_g', kind: 'out', ...mm(36, 98, FM12.w, FM12.h), size: 'sm', label: 'CH' },
+    { id: 'oh_g', kind: 'out', ...mm(48, 98, FM12.w, FM12.h), size: 'sm', label: 'OH' },
+    { id: 'out_l', kind: 'out', ...mm(14, 114, FM12.w, FM12.h), size: 'md', label: 'L' },
+    { id: 'out_r', kind: 'out', ...mm(30.48, 114, FM12.w, FM12.h), size: 'md', label: 'R' },
+    { id: 'mix', kind: 'out', ...mm(47, 114, FM12.w, FM12.h), size: 'sm', label: 'MIX' },
+  ],
+}
+
+/** emenay BitBoy — DMG APU channels: 1 sweep, 2 pulse, 3 wave, 4 noise. */
 const emenayBitboy: PanelLayout = {
   source: 'emenay fm/bitboy.svg',
   hits: [
@@ -888,11 +1131,13 @@ const emenayBitboy: PanelLayout = {
     { id: 'morph', kind: 'param', ...mm(12, 72, EM8.w, EM8.h), size: 'md', label: 'MORPH', color: KNOB_BLACK },
     { id: 'level', kind: 'param', ...mm(28.5, 72, EM8.w, EM8.h), size: 'md', label: 'LEVEL', color: KNOB_BLACK },
     { id: 'level', kind: 'led', ...mm(20.32, 84, EM8.w, EM8.h), size: 'sm', color: '#9cbc68' },
-    { id: 'v_oct', kind: 'in', ...mm(10, 96, EM8.w, EM8.h), size: 'md', label: '1V/O' },
-    { id: 'frame_cv', kind: 'in', ...mm(20.32, 96, EM8.w, EM8.h), size: 'md', label: 'FRAME' },
-    { id: 'gate', kind: 'in', ...mm(30.5, 96, EM8.w, EM8.h), size: 'md', label: 'GATE' },
-    { id: 'out', kind: 'out', ...mm(14, 114, EM8.w, EM8.h), size: 'md', label: 'OUT' },
-    { id: 'step', kind: 'out', ...mm(27, 114, EM8.w, EM8.h), size: 'md', label: 'STEP' },
+    { id: 'v_oct', kind: 'in', ...mm(8, 90, EM8.w, EM8.h), size: 'md', label: '1V/O' },
+    { id: 'mode_cv', kind: 'in', ...mm(20.32, 90, EM8.w, EM8.h), size: 'md', label: 'MODE' },
+    { id: 'frame_cv', kind: 'in', ...mm(32.5, 90, EM8.w, EM8.h), size: 'md', label: 'FRAME' },
+    { id: 'gate', kind: 'in', ...mm(12, 104, EM8.w, EM8.h), size: 'md', label: 'GATE' },
+    { id: 'level_cv', kind: 'in', ...mm(28.5, 104, EM8.w, EM8.h), size: 'md', label: 'LVL' },
+    { id: 'out', kind: 'out', ...mm(12, 118, EM8.w, EM8.h), size: 'md', label: 'OUT' },
+    { id: 'step', kind: 'out', ...mm(28.5, 118, EM8.w, EM8.h), size: 'md', label: 'STEP' },
   ],
 }
 
@@ -1027,10 +1272,19 @@ export const PANEL_LAYOUTS: Record<string, PanelLayout> = {
   erica_output: fmOutput,
   fm_output: fmOutput,
   midi_cv: emenayMidiCv,
+  midi_cc: emenayMidiCc,
+  midi_pads: emenayMidiPads,
+  polysynth: emenayPolysynth,
   envelope: fmEnvelope,
   fm_envelope: fmEnvelope,
   dual_vca: emenayDualVca,
   vco: emenayVco,
+  erica_vco3: ericaVco3,
+  erica_polivoks_vcf: ericaPolivoksVcf,
+  erica_modulator: ericaModulator,
+  erica_bassline: ericaBassline,
+  erica_bbd: ericaBbd,
+  erica_swamp: ericaSwamp,
   fm_clock: fmClock,
   fm_offset: fmOffset,
   fm_drift: fmDrift,
@@ -1047,6 +1301,7 @@ export const PANEL_LAYOUTS: Record<string, PanelLayout> = {
   sequencer64: emenaySequencer64,
   sample_hold: emenaySampleHold,
   lots: emenayLots,
+  twin: emenayTwin,
   swell: emenaySwell,
   chimes: emenayChimes,
   twist: emenayTwist,
@@ -1056,6 +1311,7 @@ export const PANEL_LAYOUTS: Record<string, PanelLayout> = {
   adsr: emenayAdsr,
   sampler: emenaySampler,
   drums: emenayDrums,
+  beat: emenayBeat,
   bitboy: emenayBitboy,
   mult: emenayMult,
   clk_mult: emenayClkMult,

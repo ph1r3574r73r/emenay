@@ -13,15 +13,44 @@ import {
   deleteUserPreset,
   getPreset,
   listPresets,
+  listPresetsByGroup,
   packGraph,
   saveUserPreset,
   unpackGraph,
   type Preset,
 } from './presets'
+import { STATIC_CATALOG, mergeCatalog } from './staticCatalog'
+import {
+  claimCc,
+  claimNote,
+  focusLearnsFromKnobBank,
+  focusParamNamesForModule,
+  formatBinding,
+  loadActionBindings,
+  loadKnobBank,
+  loadParamLearns,
+  loadProfileName,
+  mergeFocusParamLearns,
+  midiCcParamsFromBank,
+  resetMidiMapsToDefaults,
+  saveActionBindings,
+  saveKnobBank,
+  saveParamLearns,
+  saveProfileName,
+  type KnobBank,
+  type MidiActionBindingsDto,
+  type MidiAppActionName,
+  type MidiParamLearnDto,
+} from './midiLearn'
+import { MidiSettingsPage, type MidiLearnTarget } from './MidiSettingsPage'
+import { BeatEditor } from './BeatEditor'
 import './App.css'
 
 /** >0 while a knob is being dragged — poll must not overwrite local params. */
 const knobDragLock = { depth: 0 }
+
+/** Modules that shouldn't steal the hardware knob bank when selected. */
+const FOCUS_KNOB_SKIP = new Set(['speaker', 'midi_cc'])
 
 type PortDesc = { name: string; kind: string; signal: string }
 type ParamDesc = { name: string; min: number; max: number; default: number; unit: string }
@@ -67,7 +96,7 @@ type EngineSnapshot = {
 }
 
 type DeviceDto = { name: string; sample_rate: number; channels: number }
-type MidiDeviceDto = { name: string }
+type MidiDeviceDto = { name: string; open_ports?: string[] }
 type JackRef = { module: number; port: string; kind: 'in' | 'out' }
 
 /** Eurorack HP ≈ 5.08mm; screen scale — larger = more readable faceplate silk. */
@@ -114,17 +143,26 @@ const PALETTE_CATEGORIES: { id: string; label: string; types: string[] }[] = [
   {
     id: 'oscillators',
     label: 'Oscillators',
-    types: ['vco', 'facets', 'bitboy', 'noise', 'test_tone'],
+    types: [
+      'erica_vco3',
+      'erica_bassline',
+      'vco',
+      'facets',
+      'polysynth',
+      'bitboy',
+      'noise',
+      'test_tone',
+    ],
   },
   {
     id: 'drums',
     label: 'Drums',
-    types: ['drums'],
+    types: ['beat', 'twin', 'drums', 'midi_pads'],
   },
   {
     id: 'filters',
     label: 'Filters',
-    types: ['vcf', 'wasp', 'rc_lpf'],
+    types: ['erica_polivoks_vcf', 'vcf', 'wasp', 'rc_lpf'],
   },
   {
     id: 'dynamics',
@@ -138,6 +176,7 @@ const PALETTE_CATEGORIES: { id: string; label: string; types: string[] }[] = [
       'fm_boost',
       'erica_output',
       'midi_cv',
+      'midi_cc',
     ],
   },
   {
@@ -148,7 +187,7 @@ const PALETTE_CATEGORIES: { id: string; label: string; types: string[] }[] = [
   {
     id: 'modulation',
     label: 'Modulation',
-    types: ['lfo', 'swell', 'fm_offset', 'fm_drift'],
+    types: ['erica_modulator', 'lfo', 'swell', 'twin', 'fm_offset', 'fm_drift'],
   },
   {
     id: 'sequencing',
@@ -172,12 +211,12 @@ const PALETTE_CATEGORIES: { id: string; label: string; types: string[] }[] = [
   {
     id: 'random',
     label: 'Random',
-    types: ['lots', 'fm_rng', 'sample_hold'],
+    types: ['erica_swamp', 'lots', 'fm_rng', 'sample_hold'],
   },
   {
     id: 'fx',
     label: 'Resonators & FX',
-    types: ['chimes', 'twist', 'delay', 'reverb'],
+    types: ['chimes', 'twist', 'erica_bbd', 'delay', 'reverb'],
   },
 ]
 
@@ -223,6 +262,14 @@ function snapParamValue(p: ParamDesc, value: number) {
   if (p.unit === 'bool') return clamped >= 0.5 ? 1 : 0
   if (p.unit === 'int') return Math.round(clamped)
   return clamped
+}
+
+/** Map a MIDI CC normalized value (0…1) into a param’s real range. */
+function mapMidiNormToParam(p: ParamDesc, norm01: number) {
+  const t = Math.min(1, Math.max(0, norm01))
+  if (p.unit === 'bool') return t >= 0.5 ? 1 : 0
+  const raw = p.min + t * (p.max - p.min)
+  return p.unit === 'int' ? Math.round(raw) : raw
 }
 
 function formatParam(p: ParamDesc, value: number) {
@@ -394,6 +441,7 @@ function Knob({
   param,
   value,
   onChange,
+  onLearn,
   hit,
   faceplate,
   silkLabel,
@@ -401,6 +449,8 @@ function Knob({
   param: ParamDesc
   value: number
   onChange: (v: number) => void
+  /** Right-click → MIDI Learn for this param. */
+  onLearn?: () => void
   hit?: PanelHit
   faceplate?: boolean
   /** Printed name when the faceplate art itself has no silk. */
@@ -443,7 +493,7 @@ function Knob({
             ...(cap ? { ['--knob-cap' as string]: cap } : {}),
           } as React.CSSProperties
         }
-        title={`${titleLabel}: ${display}${unitSuffix}`}
+        title={`${titleLabel}: ${display}${unitSuffix}${onLearn ? ' · right-click MIDI Learn' : ''}`}
         onPointerDown={(e) => {
           e.preventDefault()
           e.stopPropagation()
@@ -470,6 +520,12 @@ function Knob({
           if (drag.current) knobDragLock.depth = Math.max(0, knobDragLock.depth - 1)
           drag.current = null
           setDragging(false)
+        }}
+        onContextMenu={(e) => {
+          if (!onLearn) return
+          e.preventDefault()
+          e.stopPropagation()
+          onLearn()
         }}
       />
       {showValue && <span className="knob-value">{display}</span>}
@@ -549,6 +605,30 @@ export default function App() {
   const [device, setDevice] = useState('')
   const [midiDevices, setMidiDevices] = useState<MidiDeviceDto[]>([])
   const [midiDevice, setMidiDevice] = useState('')
+  const [midiOpenPorts, setMidiOpenPorts] = useState<string[]>([])
+  const midiDeviceRef = useRef(midiDevice)
+  midiDeviceRef.current = midiDevice
+  const [midiSettingsOpen, setMidiSettingsOpen] = useState(false)
+  const midiSettingsOpenRef = useRef(false)
+  midiSettingsOpenRef.current = midiSettingsOpen
+  const [profileName, setProfileName] = useState(() => loadProfileName())
+  const [actionBindings, setActionBindings] = useState<MidiActionBindingsDto>(() =>
+    loadActionBindings(),
+  )
+  const [knobBank, setKnobBank] = useState<KnobBank>(() => loadKnobBank())
+  const [paramLearns, setParamLearns] = useState<MidiParamLearnDto[]>(() => loadParamLearns())
+  const [learnTarget, setLearnTarget] = useState<MidiLearnTarget | null>(null)
+  const learnTargetRef = useRef<MidiLearnTarget | null>(null)
+  learnTargetRef.current = learnTarget
+  const [lastMidiHint, setLastMidiHint] = useState<string | null>(null)
+  const [lastMidiEvent, setLastMidiEvent] = useState<{
+    isCc: boolean
+    number: number
+  } | null>(null)
+  const snapRunningRef = useRef(false)
+  snapRunningRef.current = Boolean(snap?.running)
+  const catalogRef = useRef(catalog)
+  catalogRef.current = catalog
   const [status, setStatus] = useState('idle')
   const [pendingJack, setPendingJack] = useState<JackRef | null>(null)
   const [hoverCable, setHoverCable] = useState<number | null>(null)
@@ -605,42 +685,7 @@ export default function App() {
   const refresh = useCallback(async () => {
     if (!isTauri()) {
       setDemo(true)
-      setCatalog([
-        {
-          type_id: 'test_tone',
-          name: 'Test Tone',
-          hp: 6,
-          inputs: [],
-          outputs: [{ name: 'out', kind: 'output', signal: 'audio' }],
-          params: [
-            { name: 'freq', min: 20, max: 2000, default: 440, unit: 'Hz' },
-            { name: 'amp', min: 0, max: 5, default: 1, unit: 'V' },
-          ],
-        },
-        {
-          type_id: 'erica_mixer',
-          name: 'Mixer',
-          hp: 8,
-          inputs: [
-            { name: 'in1', kind: 'input', signal: 'audio' },
-            { name: 'in2', kind: 'input', signal: 'audio' },
-            { name: 'in3', kind: 'input', signal: 'audio' },
-          ],
-          outputs: [{ name: 'out', kind: 'output', signal: 'audio' }],
-          params: [{ name: 'master', min: 0, max: 1, default: 0.7, unit: '' }],
-        },
-        {
-          type_id: 'speaker',
-          name: 'Speaker',
-          hp: 8,
-          inputs: [
-            { name: 'ch1', kind: 'input', signal: 'audio' },
-            { name: 'ch2', kind: 'input', signal: 'audio' },
-          ],
-          outputs: [],
-          params: [],
-        },
-      ])
+      setCatalog(mergeCatalog(STATIC_CATALOG))
       setSnap({
         sample_rate: 48000,
         channels: 2,
@@ -675,31 +720,308 @@ export default function App() {
       invoke<EngineSnapshot>('snapshot'),
       invoke<DeviceDto[]>('list_devices'),
     ])
-    setCatalog(cat)
+    // Prefer live engine catalog; keep static fallbacks so new faceplates still
+    // get knobs/jacks if the UI is ahead of a rebuilt desktop binary.
+    setCatalog(mergeCatalog(cat))
     setSnap(s)
     setDevices(devs)
     if (!device && devs[0]) setDevice(devs[0].name)
     setStatus(s.running ? `LIVE · ${s.sample_rate | 0}Hz · ${s.channels}ch` : 'stopped')
   }, [device])
 
-  const refreshMidiDevices = useCallback(async () => {
+  const refreshMidiDevices = useCallback(async (opts?: { force?: boolean }) => {
     if (!isTauri()) return
     try {
       const midiDevs = await invoke<MidiDeviceDto[]>('list_midi_devices')
       setMidiDevices(midiDevs)
-      setMidiDevice((prev) => {
-        if (prev && midiDevs.some((d) => d.name === prev)) return prev
-        return midiDevs[0]?.name ?? ''
-      })
+      // Prefer current selection if still present; else first listed port
+      // (engine already hides Mackie/HUI and sorts notes ports first).
+      const prev = midiDeviceRef.current
+      const chosen =
+        (prev && midiDevs.some((d) => d.name === prev) ? prev : midiDevs[0]?.name) ?? ''
+      if (chosen !== prev) setMidiDevice(chosen)
+      if (midiDevs.length > 0) {
+        try {
+          // Soft ensure ignores preferred-name mismatches (avoids reconnect
+          // storms). Force only for manual Reconnect / first pick.
+          const info = opts?.force
+            ? await invoke<MidiDeviceDto>('start_midi', {
+                device: chosen || null,
+                force: true,
+              })
+            : await invoke<MidiDeviceDto>('ensure_midi', {
+                device: null,
+              })
+          // Keep user's preferred selection when it's still listed.
+          if (chosen && midiDevs.some((d) => d.name === chosen)) {
+            setMidiDevice(chosen)
+          } else {
+            setMidiDevice(info.name)
+          }
+          setMidiOpenPorts(info.open_ports ?? [info.name])
+        } catch (e) {
+          console.warn('MIDI auto-connect:', e)
+          setMidiOpenPorts([])
+        }
+      } else {
+        setMidiOpenPorts([])
+      }
     } catch {
       setMidiDevices([])
     }
   }, [])
 
+  const pushMidiMapsToEngine = useCallback(async (actions: MidiActionBindingsDto, learns: MidiParamLearnDto[]) => {
+    if (!isTauri()) return
+    try {
+      await invoke('set_midi_action_bindings', { bindings: actions })
+      await invoke('set_midi_param_learns', { learns })
+    } catch (e) {
+      console.warn('MIDI maps:', e)
+    }
+  }, [])
+
+  const focusLearnsRef = useRef<MidiParamLearnDto[] | null>(null)
+  /** Skip redundant IPC when merged maps haven't changed (lights poll used to spam this). */
+  const lastMapsPushKey = useRef('')
+  const mapsPushGen = useRef(0)
+
+  const pushEffectiveMidiMaps = useCallback(
+    async (actions: MidiActionBindingsDto, persistent: MidiParamLearnDto[]) => {
+      const merged = mergeFocusParamLearns(persistent, focusLearnsRef.current)
+      const key = JSON.stringify({ actions, learns: merged })
+      if (key === lastMapsPushKey.current) return
+      lastMapsPushKey.current = key
+      const gen = ++mapsPushGen.current
+      await pushMidiMapsToEngine(actions, merged)
+      // A newer push started while we awaited — don't let ours look "current".
+      if (gen !== mapsPushGen.current) {
+        lastMapsPushKey.current = ''
+      }
+    },
+    [pushMidiMapsToEngine],
+  )
+
+  /** Keep existing MIDI CC modules' cc_num_* in sync with the knob bank. */
+  const syncMidiCcModulesFromBank = useCallback(
+    async (bank: KnobBank) => {
+      const current = snapRef.current
+      if (!current) return
+      const targets = current.graph.modules.filter((m) => m.type_id === 'midi_cc')
+      if (!targets.length) return
+      const updates: Array<{ id: number; name: string; value: number }> = []
+      for (const m of targets) {
+        for (let i = 0; i < 8; i++) {
+          const name = `cc_num_${i + 1}`
+          const value = bank[i]!
+          if (m.params[name] === value) continue
+          updates.push({ id: m.id, name, value })
+        }
+      }
+      if (!updates.length) return
+      if (isTauri()) {
+        for (const u of updates) {
+          try {
+            await invoke('set_param', {
+              args: { module_id: u.id, name: u.name, value: u.value },
+            })
+          } catch {
+            /* ignore */
+          }
+        }
+      }
+      setSnap((prev) => {
+        if (!prev) return prev
+        return {
+          ...prev,
+          graph: {
+            ...prev.graph,
+            modules: prev.graph.modules.map((m) => {
+              if (m.type_id !== 'midi_cc') return m
+              const params = { ...m.params }
+              for (let i = 0; i < 8; i++) params[`cc_num_${i + 1}`] = bank[i]!
+              return { ...m, params }
+            }),
+          },
+        }
+      })
+    },
+    [],
+  )
+
   useEffect(() => {
     refresh().catch((e) => setStatus(String(e)))
     refreshMidiDevices().catch(() => {})
-  }, [refresh, refreshMidiDevices])
+    pushEffectiveMidiMaps(loadActionBindings(), loadParamLearns()).catch(() => {})
+  }, [refresh, refreshMidiDevices, pushEffectiveMidiMaps])
+
+  // MIDI watchdog — reopen only when ports actually vanish (sleep/unplug).
+  // Skip while Learn is armed so we don't tear down mid-capture.
+  useEffect(() => {
+    if (!isTauri()) return
+    let alive = true
+    const tick = () => {
+      if (!alive || learnTargetRef.current) return
+      refreshMidiDevices().catch(() => {})
+    }
+    const id = window.setInterval(tick, 4000)
+    const onVis = () => {
+      if (document.visibilityState === 'visible') tick()
+    }
+    const onFocus = () => tick()
+    document.addEventListener('visibilitychange', onVis)
+    window.addEventListener('focus', onFocus)
+    return () => {
+      alive = false
+      window.clearInterval(id)
+      document.removeEventListener('visibilitychange', onVis)
+      window.removeEventListener('focus', onFocus)
+    }
+  }, [refreshMidiDevices])
+
+  const armLearn = useCallback(
+    async (target: MidiLearnTarget) => {
+      if (!isTauri()) {
+        setStatus('MIDI Learn needs desktop build')
+        return
+      }
+      setLearnTarget(target)
+      const ccOnly = target.kind === 'knob' || target.kind === 'param'
+      try {
+        await invoke('arm_midi_learn', {
+          armed: true,
+          cc_only: ccOnly,
+          ccOnly,
+        })
+        const label =
+          target.kind === 'action'
+            ? `Learn ${target.action}… move a control`
+            : target.kind === 'knob'
+              ? `Learn knob ${target.index + 1}… turn a knob (CC)`
+              : `Learn ${target.param}… turn a knob (CC)`
+        setStatus(label)
+      } catch (e) {
+        setLearnTarget(null)
+        setStatus(`learn failed · ${String(e)}`)
+      }
+    },
+    [],
+  )
+
+  const commitMidiMaps = useCallback(
+    (maps: { actions: MidiActionBindingsDto; bank: KnobBank; learns: MidiParamLearnDto[] }) => {
+      const bankChanged =
+        maps.bank.some((cc, i) => cc !== knobBank[i]) || maps.bank.length !== knobBank.length
+      setActionBindings(maps.actions)
+      setKnobBank(maps.bank)
+      setParamLearns(maps.learns)
+      saveActionBindings(maps.actions)
+      saveKnobBank(maps.bank)
+      saveParamLearns(maps.learns)
+      pushEffectiveMidiMaps(maps.actions, maps.learns).catch(() => {})
+      if (bankChanged) syncMidiCcModulesFromBank(maps.bank).catch(() => {})
+    },
+    [knobBank, pushEffectiveMidiMaps, syncMidiCcModulesFromBank],
+  )
+
+  const applyLearnEvent = useCallback(
+    (isCc: boolean, number: number) => {
+      const target = learnTargetRef.current
+      if (!target) return
+      const maps = {
+        actions: actionBindings,
+        bank: knobBank,
+        learns: paramLearns,
+      }
+      if (target.kind === 'action') {
+        const next = isCc
+          ? claimCc(maps, number, { kind: 'action', action: target.action })
+          : claimNote(maps, number, target.action)
+        commitMidiMaps(next)
+        setStatus(
+          `learned ${target.action} ← ${formatBinding(next.actions[target.action])}`,
+        )
+      } else if (target.kind === 'knob') {
+        if (!isCc) {
+          setStatus('knob bank learn needs a CC')
+          setLearnTarget(null)
+          return
+        }
+        const next = claimCc(maps, number, { kind: 'knob', index: target.index })
+        commitMidiMaps(next)
+        setStatus(`learned knob ${target.index + 1} ← CC${number}`)
+      } else if (isCc) {
+        const next = claimCc(maps, number, {
+          kind: 'param',
+          moduleId: target.moduleId,
+          param: target.param,
+        })
+        commitMidiMaps(next)
+        setStatus(`learned ${target.param} ← CC${number}`)
+      } else {
+        setStatus('param learn needs a CC (not a note)')
+      }
+      setLearnTarget(null)
+    },
+    [actionBindings, knobBank, paramLearns, commitMidiMaps],
+  )
+
+  const updateActionBindings = useCallback(
+    (next: MidiActionBindingsDto) => {
+      // Detect a single-key edit from Settings and steal that CC/note.
+      const keys = Object.keys(next) as (keyof MidiActionBindingsDto)[]
+      let changed: keyof MidiActionBindingsDto | null = null
+      for (const k of keys) {
+        const a = actionBindings[k]
+        const b = next[k]
+        if (a.kind !== b.kind || a.n !== b.n) {
+          changed = k
+          break
+        }
+      }
+      if (changed) {
+        const b = next[changed]
+        const maps = { actions: actionBindings, bank: knobBank, learns: paramLearns }
+        if (b.kind === 'cc') {
+          commitMidiMaps(claimCc(maps, b.n, { kind: 'action', action: changed }))
+          return
+        }
+        if (b.kind === 'note') {
+          commitMidiMaps(claimNote(maps, b.n, changed))
+          return
+        }
+      }
+      setActionBindings(next)
+      saveActionBindings(next)
+      pushEffectiveMidiMaps(next, paramLearns).catch(() => {})
+    },
+    [actionBindings, knobBank, paramLearns, commitMidiMaps, pushEffectiveMidiMaps],
+  )
+
+  const updateKnobBank = useCallback(
+    (next: KnobBank) => {
+      let changed = -1
+      for (let i = 0; i < 8; i++) {
+        if (next[i] !== knobBank[i]) {
+          changed = i
+          break
+        }
+      }
+      if (changed >= 0) {
+        commitMidiMaps(
+          claimCc(
+            { actions: actionBindings, bank: knobBank, learns: paramLearns },
+            next[changed],
+            { kind: 'knob', index: changed },
+          ),
+        )
+        return
+      }
+      setKnobBank(next)
+      saveKnobBank(next)
+    },
+    [actionBindings, knobBank, paramLearns, commitMidiMaps],
+  )
 
   // Poll lights only while running — a full snapshot every 50ms was cloning
   // the whole patch under the audio mutex and glitched dense cable graphs.
@@ -743,6 +1065,57 @@ export default function App() {
     for (const c of catalog) m.set(c.type_id, c)
     return m
   }, [catalog])
+
+  // Stable identity only — do NOT depend on whole `snap` (lights poll rewrites
+  // it every ~66ms and was re-pushing MIDI maps continuously, killing CC→param).
+  const selectedTypeId =
+    selectedId == null
+      ? null
+      : (snap?.graph.modules.find((m) => m.id === selectedId)?.type_id ?? null)
+
+  /** Knob bank → selected module’s default params (not persisted). */
+  const focusLearns = useMemo((): MidiParamLearnDto[] | null => {
+    if (selectedId == null || selectedTypeId == null) return null
+    if (FOCUS_KNOB_SKIP.has(selectedTypeId)) return null
+    const info = infoByType.get(selectedTypeId)
+    if (!info?.params.length) return null
+    const layout = resolvePanelLayout(selectedTypeId)
+    const panelParams: string[] = []
+    const seen = new Set<string>()
+    for (const h of layout?.hits ?? []) {
+      if (h.kind !== 'param' || seen.has(h.id)) continue
+      seen.add(h.id)
+      panelParams.push(h.id)
+    }
+    const names = focusParamNamesForModule(
+      info.params.map((p) => p.name),
+      panelParams,
+    )
+    if (!names.length) return null
+    return focusLearnsFromKnobBank(selectedId, names, knobBank)
+  }, [selectedId, selectedTypeId, infoByType, knobBank])
+
+  focusLearnsRef.current = focusLearns
+
+  useEffect(() => {
+    pushEffectiveMidiMaps(actionBindings, paramLearns).catch(() => {})
+  }, [focusLearns, actionBindings, paramLearns, pushEffectiveMidiMaps])
+
+  useEffect(() => {
+    if (selectedId == null) {
+      if (paramLearns.length > 0) {
+        setStatus('MIDI knobs → saved maps')
+      }
+      return
+    }
+    if (!focusLearns?.length || !snap) return
+    const mod = snap.graph.modules.find((m) => m.id === selectedId)
+    if (!mod) return
+    const info = infoByType.get(mod.type_id) ?? mod.info
+    setStatus(`MIDI knobs → ${info?.name ?? mod.type_id}`)
+    // Announce when focus / deselect restores persistent maps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedId, focusLearns?.[0]?.module_id, knobBank])
 
   const paletteSections = useMemo(() => {
     const byId = new Map(catalog.map((c) => [c.type_id, c]))
@@ -932,13 +1305,17 @@ export default function App() {
       const deviceName = device
       try {
         const graph = unpackGraph(preset.graph, hpPxRef.current)
+        const bankParams = midiCcParamsFromBank(knobBank)
         const next: EngineSnapshot = {
           ...current,
           running: false,
           graph: {
             modules: graph.modules.map((m) => ({
               ...m,
-              params: { ...m.params },
+              params:
+                m.type_id === 'midi_cc'
+                  ? { ...m.params, ...bankParams }
+                  : { ...m.params },
             })),
             cables: graph.cables,
             next_module_id: graph.next_module_id,
@@ -965,10 +1342,11 @@ export default function App() {
           })
           let midiLabel = ''
           try {
-            const midi = await invoke<MidiDeviceDto>('start_midi', {
+            const midi = await invoke<MidiDeviceDto>('ensure_midi', {
               device: midiDevice || null,
             })
             setMidiDevice(midi.name)
+            setMidiOpenPorts(midi.open_ports ?? [midi.name])
             midiLabel = ` · MIDI ${midi.name}`
           } catch (e) {
             midiLabel = ` · MIDI off (${String(e)})`
@@ -978,10 +1356,11 @@ export default function App() {
           )
         } else {
           try {
-            const midi = await invoke<MidiDeviceDto>('start_midi', {
+            const midi = await invoke<MidiDeviceDto>('ensure_midi', {
               device: midiDevice || null,
             })
             setMidiDevice(midi.name)
+            setMidiOpenPorts(midi.open_ports ?? [midi.name])
             setStatus(`preset · ${preset.name} · MIDI ${midi.name}`)
           } catch (e) {
             setStatus(`preset · ${preset.name} · MIDI off (${String(e)})`)
@@ -1000,7 +1379,7 @@ export default function App() {
         setRackBusy(false)
       }
     },
-    [device, midiDevice, refresh],
+    [device, knobBank, midiDevice, refresh],
   )
 
   const cyclePreset = useCallback(
@@ -1047,20 +1426,25 @@ export default function App() {
     }
   }, [device, refresh])
 
-  const saveCurrentPreset = useCallback(() => {
+  const saveCurrentPreset = useCallback((opts?: { silent?: boolean }) => {
     const current = snapRef.current
     if (!current) return
     const selected = presetId ? getPreset(presetId) : undefined
     const canOverwrite = selected && !selected.builtin
     const defaultName = canOverwrite ? selected.name : 'My patch'
-    const name = window.prompt(
-      canOverwrite
-        ? 'Save preset as (same name overwrites):'
-        : 'Name this preset:',
-      defaultName,
-    )
-    if (name == null) return
-    const trimmed = name.trim()
+    let trimmed: string
+    if (opts?.silent && canOverwrite) {
+      trimmed = selected.name
+    } else {
+      const name = window.prompt(
+        canOverwrite
+          ? 'Save preset as (same name overwrites):'
+          : 'Name this preset:',
+        defaultName,
+      )
+      if (name == null) return
+      trimmed = name.trim()
+    }
     if (!trimmed) {
       setStatus('preset name required')
       return
@@ -1075,6 +1459,127 @@ export default function App() {
     setPresetId(saved.id)
     setStatus(`saved · ${saved.name}`)
   }, [presetId, reloadPresets])
+
+  // MIDI app-action + learn capture poll (desktop).
+  useEffect(() => {
+    if (!isTauri()) return
+    let alive = true
+    const id = window.setInterval(() => {
+      // Sequential: one drain/apply/echo path per tick (parallel invokes raced).
+      void (async () => {
+        try {
+          const actions = await invoke<string[]>('poll_midi_actions')
+          if (!alive) return
+          for (const a of actions as MidiAppActionName[]) {
+            switch (a) {
+              case 'Start':
+                // Ignore while already live — repeated Start (FA/CC) was
+                // re-entering start()/refresh and fighting knob updates.
+                if (!snapRunningRef.current) start().catch(console.error)
+                break
+              case 'Stop':
+                if (snapRunningRef.current) stop().catch(console.error)
+                break
+              case 'Rest':
+              case 'Panic':
+                masterRest().catch(console.error)
+                break
+              case 'PresetPrev':
+                cyclePreset(-1)
+                break
+              case 'PresetNext':
+                cyclePreset(1)
+                break
+              case 'PresetSave':
+                saveCurrentPreset({ silent: true })
+                break
+              default:
+                break
+            }
+          }
+          const st = await invoke<{
+            armed: boolean
+            last_midi: string | null
+            last_event?: {
+              is_cc?: boolean
+              isCc?: boolean
+              number: number
+              value: number
+            } | null
+            lastEvent?: {
+              is_cc?: boolean
+              isCc?: boolean
+              number: number
+              value: number
+            } | null
+            event: {
+              is_cc?: boolean
+              isCc?: boolean
+              number: number
+              value: number
+            } | null
+            params?: Array<{
+              module_id?: number
+              moduleId?: number
+              param: string
+              value: number
+            }>
+          }>('poll_midi_learn_status')
+          if (!alive) return
+          const hint =
+            st.last_midi ??
+            (st as { lastMidi?: string | null }).lastMidi ??
+            null
+          if (hint) setLastMidiHint(hint)
+          const lastEv = st.last_event ?? st.lastEvent ?? null
+          if (lastEv) {
+            setLastMidiEvent({
+              isCc: Boolean(lastEv.is_cc ?? lastEv.isCc),
+              number: lastEv.number,
+            })
+          }
+          const midiParams = st.params ?? []
+          if (midiParams.length > 0 && knobDragLock.depth === 0) {
+            const cat = catalogRef.current
+            setSnap((prev) => {
+              if (!prev) return prev
+              let changed = false
+              const modules = prev.graph.modules.map((m) => {
+                let nextParams: Record<string, number> | null = null
+                for (const p of midiParams) {
+                  const id = p.module_id ?? p.moduleId
+                  if (id !== m.id) continue
+                  const info =
+                    m.info ?? cat.find((c) => c.type_id === m.type_id)
+                  const desc = info?.params.find((d) => d.name === p.param)
+                  const value = desc ? mapMidiNormToParam(desc, p.value) : p.value
+                  if (m.params[p.param] === value) continue
+                  if (!nextParams) nextParams = { ...m.params }
+                  nextParams[p.param] = value
+                  changed = true
+                }
+                return nextParams ? { ...m, params: nextParams } : m
+              })
+              if (!changed) return prev
+              return { ...prev, graph: { ...prev.graph, modules } }
+            })
+          }
+          const ev = st.event
+          if (!ev || !learnTargetRef.current) return
+          const isCc = Boolean(ev.is_cc ?? ev.isCc)
+          applyLearnEvent(isCc, ev.number)
+        } catch {
+          /* ignore poll errors */
+        }
+      })()
+    }, 50)
+    return () => {
+      alive = false
+      window.clearInterval(id)
+    }
+    // start/stop are stable enough for this poll; intentionally omit heavy deps.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [applyLearnEvent, cyclePreset, masterRest, saveCurrentPreset])
 
   const deleteSelectedPreset = useCallback(() => {
     const selected = presetId ? getPreset(presetId) : undefined
@@ -1184,11 +1689,23 @@ export default function App() {
         setSelectedId(null)
         return
       }
+      const inField =
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement ||
+        e.target instanceof HTMLSelectElement ||
+        (e.target instanceof HTMLElement && e.target.isContentEditable)
+      // Controllers in HID/DAW mode often send Space for Play — that scrolls
+      // the page instead of hitting our MIDI Start binding.
+      if (
+        !inField &&
+        (e.code === 'Space' || e.code === 'PageDown' || e.code === 'PageUp')
+      ) {
+        e.preventDefault()
+      }
       if (
         (e.key === 'Backspace' || e.key === 'Delete') &&
         selectedId != null &&
-        !(e.target instanceof HTMLInputElement) &&
-        !(e.target instanceof HTMLTextAreaElement)
+        !inField
       ) {
         e.preventDefault()
         removeModule(selectedId).catch(console.error)
@@ -1207,10 +1724,13 @@ export default function App() {
     if (!isTauri()) return
     const want = name ?? midiDevice
     try {
+      // Manual picker always force-reopens so a stuck host can't linger.
       const info = await invoke<MidiDeviceDto>('start_midi', {
         device: want || null,
+        force: true,
       })
       setMidiDevice(info.name)
+      setMidiOpenPorts(info.open_ports ?? [info.name])
       setStatus((s) =>
         s.startsWith('LIVE') ? `${s} · MIDI ${info.name}` : `MIDI · ${info.name}`,
       )
@@ -1222,13 +1742,15 @@ export default function App() {
 
   async function start() {
     if (!isTauri()) return
+    if (snapRunningRef.current) return
     const info = await invoke<DeviceDto>('start_audio', { device: device || null })
     let midiLabel = ''
     try {
-      const midi = await invoke<MidiDeviceDto>('start_midi', {
+      const midi = await invoke<MidiDeviceDto>('ensure_midi', {
         device: midiDevice || null,
       })
       setMidiDevice(midi.name)
+      setMidiOpenPorts(midi.open_ports ?? [midi.name])
       midiLabel = ` · MIDI ${midi.name}`
     } catch (e) {
       midiLabel = ` · MIDI off (${String(e)})`
@@ -1258,6 +1780,9 @@ export default function App() {
       return
     }
 
+    const seedParams =
+      typeId === 'midi_cc' ? midiCcParamsFromBank(knobBank) : {}
+
     if (!isTauri()) {
       setSnap((prev) => {
         if (!prev) return prev
@@ -1269,14 +1794,19 @@ export default function App() {
             next_module_id: id + 1,
             modules: [
               ...prev.graph.modules,
-              { id, type_id: typeId, x: sx, y: sy, params: {} },
+              { id, type_id: typeId, x: sx, y: sy, params: seedParams },
             ],
           },
         }
       })
       return
     }
-    await invoke('add_module', { args: { type_id: typeId, x: sx, y: sy } })
+    const id = await invoke<number>('add_module', {
+      args: { type_id: typeId, x: sx, y: sy },
+    })
+    for (const [name, value] of Object.entries(seedParams)) {
+      await invoke('set_param', { args: { module_id: id, name, value } })
+    }
     await refresh()
   }
 
@@ -1541,61 +2071,108 @@ export default function App() {
       }}
     >
       <header className="topbar">
-        <div className="brand">
-          <span className="logo">emenay</span>
-          <span className="tag">eurorack · circuit-faithful</span>
+        <div className="topbar-row topbar-primary">
+          <div className="brand">
+            <span className="logo">emenay</span>
+            <span className="tag">eurorack · circuit-faithful</span>
+          </div>
+
+          <div className="topbar-group topbar-transport" role="group" aria-label="Transport">
+            <button
+              type="button"
+              className="primary"
+              onClick={() => start().catch(console.error)}
+              disabled={demo || running}
+            >
+              Start
+            </button>
+            <button
+              type="button"
+              className="danger"
+              onClick={() => stop().catch(console.error)}
+              disabled={demo || !running}
+            >
+              Stop
+            </button>
+            <button
+              type="button"
+              title="Silence and reset all module DSP"
+              disabled={demo || rackBusy}
+              onClick={() => masterRest().catch(console.error)}
+            >
+              Rest
+            </button>
+          </div>
+
+          <div className="topbar-meters">
+            <span
+              className={`status ${running ? 'live' : ''}`}
+              title={status}
+            >
+              {status}
+            </span>
+            <span
+              className={`midi-live${lastMidiHint ? ' has-msg' : ''}`}
+              title="Last MIDI message"
+              role="status"
+              aria-live="polite"
+            >
+              <span className="midi-live-label">MIDI</span>
+              <code className="midi-live-value">{lastMidiHint ?? '—'}</code>
+            </span>
+          </div>
         </div>
-        <div className="controls">
-          <select value={device} onChange={(e) => setDevice(e.target.value)} disabled={demo}>
-            {devices.length === 0 && <option value="">default device</option>}
-            {devices.map((d) => (
-              <option key={d.name} value={d.name}>
-                {d.name} ({d.channels}ch)
-              </option>
-            ))}
-          </select>
-          <select
-            value={midiDevice}
-            title="MIDI input (USB keyboard / interface)"
-            disabled={demo}
-            onChange={(e) => {
-              const name = e.target.value
-              setMidiDevice(name)
-              if (name) connectMidi(name).catch(console.error)
-            }}
-          >
-            {midiDevices.length === 0 && <option value="">no MIDI in</option>}
-            {midiDevices.map((d) => (
-              <option key={d.name} value={d.name}>
-                MIDI · {d.name}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            className="primary"
-            onClick={() => start().catch(console.error)}
-            disabled={demo || running}
-          >
-            Start
-          </button>
-          <button
-            type="button"
-            className="danger"
-            onClick={() => stop().catch(console.error)}
-            disabled={demo || !running}
-          >
-            Stop
-          </button>
-          <button
-            type="button"
-            title="Silence and reset all module DSP (safe before swapping patches)"
-            disabled={demo || rackBusy}
-            onClick={() => masterRest().catch(console.error)}
-          >
-            Rest
-          </button>
-          <div className="rack-presets" role="group" aria-label="Presets">
+
+        <div className="topbar-row topbar-secondary">
+          <div className="topbar-group topbar-io" role="group" aria-label="Audio and MIDI">
+            <label className="topbar-field">
+              <span className="topbar-field-label">Out</span>
+              <select
+                value={device}
+                onChange={(e) => setDevice(e.target.value)}
+                disabled={demo}
+                title={device || 'Audio output'}
+              >
+                {devices.length === 0 && <option value="">default</option>}
+                {devices.map((d) => (
+                  <option key={d.name} value={d.name}>
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label className="topbar-field">
+              <span className="topbar-field-label">MIDI</span>
+              <select
+                value={midiDevice}
+                title={midiDevice || 'MIDI input'}
+                disabled={demo}
+                onChange={(e) => {
+                  const name = e.target.value
+                  setMidiDevice(name)
+                  if (name) connectMidi(name).catch(console.error)
+                }}
+              >
+                {midiDevices.length === 0 && <option value="">none</option>}
+                {midiDevices.map((d) => (
+                  <option key={d.name} value={d.name}>
+                    {d.name}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              title="MIDI settings — map your controller"
+              disabled={demo}
+              className={learnTarget || midiSettingsOpen ? 'primary' : undefined}
+              onClick={() => setMidiSettingsOpen(true)}
+            >
+              {learnTarget ? 'Learn…' : 'Map'}
+            </button>
+          </div>
+
+          <div className="topbar-group rack-presets" role="group" aria-label="Presets">
             <button
               type="button"
               className="rack-presets-nav"
@@ -1623,28 +2200,20 @@ export default function App() {
               }}
             >
               <option value="">Presets…</option>
-              {presets.some((p) => p.builtin) && (
-                <optgroup label="Built-in">
-                  {presets
-                    .filter((p) => p.builtin)
-                    .map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.name}
-                      </option>
-                    ))}
+              {listPresetsByGroup().map(({ group, presets: groupPresets }) => (
+                <optgroup
+                  key={group.id}
+                  label={
+                    group.hint ? `${group.label} — ${group.hint}` : group.label
+                  }
+                >
+                  {groupPresets.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.name}
+                    </option>
+                  ))}
                 </optgroup>
-              )}
-              {presets.some((p) => !p.builtin) && (
-                <optgroup label="Saved">
-                  {presets
-                    .filter((p) => !p.builtin)
-                    .map((p) => (
-                      <option key={p.id} value={p.id}>
-                        {p.name}
-                      </option>
-                    ))}
-                </optgroup>
-              )}
+              ))}
             </select>
             <button
               type="button"
@@ -1660,7 +2229,7 @@ export default function App() {
               type="button"
               title="Save the current rack as a named preset"
               disabled={rackBusy || !snap}
-              onClick={saveCurrentPreset}
+              onClick={() => saveCurrentPreset()}
             >
               Save
             </button>
@@ -1676,7 +2245,8 @@ export default function App() {
               Del
             </button>
           </div>
-          <div className="rack-actions" role="group" aria-label="Rack actions">
+
+          <div className="topbar-group rack-actions" role="group" aria-label="Rack actions">
             <button
               type="button"
               title="Clear rack and fill both rows with random modules"
@@ -1700,7 +2270,8 @@ export default function App() {
               Clear
             </button>
           </div>
-          <div className="rack-zoom" role="group" aria-label="Rack zoom">
+
+          <div className="topbar-group rack-zoom" role="group" aria-label="Rack zoom">
             <button
               type="button"
               aria-label="Zoom out"
@@ -1729,9 +2300,93 @@ export default function App() {
               Fit
             </button>
           </div>
-          <span className={`status ${running ? 'live' : ''}`}>{status}</span>
         </div>
       </header>
+
+      {midiSettingsOpen && (
+        <MidiSettingsPage
+          profileName={profileName}
+          onProfileName={(name) => {
+            setProfileName(name)
+            saveProfileName(name)
+          }}
+          midiDevices={midiDevices}
+          midiDevice={midiDevice}
+          openPorts={midiOpenPorts}
+          onMidiDevice={(name) => {
+            setMidiDevice(name)
+            if (name) connectMidi(name).catch(console.error)
+          }}
+          onReconnectMidi={() => {
+            refreshMidiDevices({ force: true }).catch(console.error)
+          }}
+          actionBindings={actionBindings}
+          onActionBindings={updateActionBindings}
+          knobBank={knobBank}
+          onKnobBank={updateKnobBank}
+          paramLearns={paramLearns}
+          onClearParamLearn={(l) => {
+            setParamLearns((prev) => {
+              const next = prev.filter(
+                (x) =>
+                  !(
+                    x.module_id === l.module_id &&
+                    x.param === l.param &&
+                    x.cc === l.cc
+                  ),
+              )
+              saveParamLearns(next)
+              pushEffectiveMidiMaps(actionBindings, next).catch(() => {})
+              return next
+            })
+          }}
+          onClearAllParamLearns={() => {
+            setParamLearns([])
+            saveParamLearns([])
+            pushEffectiveMidiMaps(actionBindings, []).catch(() => {})
+          }}
+          learnTarget={learnTarget}
+          lastMidiHint={lastMidiHint}
+          lastMidiEvent={lastMidiEvent}
+          onArmLearn={armLearn}
+          onUseLastMidi={() => {
+            if (!lastMidiEvent || !learnTargetRef.current) return
+            applyLearnEvent(lastMidiEvent.isCc, lastMidiEvent.number)
+            if (isTauri()) {
+              invoke('arm_midi_learn', {
+                armed: false,
+                cc_only: false,
+                ccOnly: false,
+              }).catch(() => {})
+            }
+          }}
+          onCancelLearn={() => {
+            setLearnTarget(null)
+            if (isTauri()) {
+              invoke('arm_midi_learn', {
+                armed: false,
+                cc_only: false,
+                ccOnly: false,
+              }).catch(() => {})
+            }
+          }}
+          onResetDefaults={() => {
+            const { actions, bank, learns, profile } = resetMidiMapsToDefaults()
+            setActionBindings(actions)
+            setKnobBank(bank)
+            setParamLearns(learns)
+            setProfileName(profile)
+            pushEffectiveMidiMaps(actions, learns).catch(() => {})
+            setStatus('MIDI map reset to defaults')
+          }}
+          onClose={() => {
+            setMidiSettingsOpen(false)
+            setLearnTarget(null)
+            if (isTauri()) invoke('arm_midi_learn', { armed: false }).catch(() => {})
+          }}
+          demo={demo}
+        />
+      )}
 
       <aside className="palette">
         <h2>Modules</h2>
@@ -1903,6 +2558,9 @@ export default function App() {
                   ref={(el) => {
                     bayRefs.current[row] = el
                   }}
+                  onPointerDown={(e) => {
+                    if (e.target === e.currentTarget) setSelectedId(null)
+                  }}
                   onPointerMove={(e) => {
                     if (paletteDragRef.current) {
                       updatePaletteDropHint(
@@ -2027,7 +2685,9 @@ export default function App() {
                               )
                             )
                               return
-                            setSelectedId(mod.id)
+                            // Click selected → unselect (restore persistent MIDI maps).
+                            // Click other → select (focus knobs on this module).
+                            setSelectedId((id) => (id === mod.id ? null : mod.id))
                             const bay = bayRefs.current[row]
                             if (!bay) return
                             ;(e.currentTarget as HTMLElement).setPointerCapture(e.pointerId)
@@ -2117,6 +2777,13 @@ export default function App() {
                                     param={p}
                                     value={mod.params[p.name] ?? p.default}
                                     onChange={(v) => setParam(mod.id, p.name, v)}
+                                    onLearn={() =>
+                                      armLearn({
+                                        kind: 'param',
+                                        moduleId: mod.id,
+                                        param: p.name,
+                                      })
+                                    }
                                     hit={paramHit}
                                     faceplate
                                     silkLabel={
@@ -2204,6 +2871,13 @@ export default function App() {
                                         param={p}
                                         value={mod.params[p.name] ?? p.default}
                                         onChange={(v) => setParam(mod.id, p.name, v)}
+                                        onLearn={() =>
+                                          armLearn({
+                                            kind: 'param',
+                                            moduleId: mod.id,
+                                            param: p.name,
+                                          })
+                                        }
                                       />
                                     ),
                                   )}
@@ -2278,6 +2952,20 @@ export default function App() {
             ))}
           </div>
         </div>
+        {selectedId != null &&
+          (() => {
+            const mod = snap?.graph.modules.find((m) => m.id === selectedId)
+            if (!mod || mod.type_id !== 'beat') return null
+            return (
+              <BeatEditor
+                moduleId={mod.id}
+                params={mod.params}
+                onParam={(name, value) => {
+                  setParam(mod.id, name, value).catch(console.error)
+                }}
+              />
+            )
+          })()}
       </main>
     </div>
   )

@@ -16,6 +16,8 @@ pub mod twist;
 pub mod swell;
 #[cfg(feature = "mi-lots")]
 pub mod lots;
+#[cfg(feature = "mi-twin")]
+pub mod twin;
 
 pub const MI_SAMPLE_RATE: f32 = 48_000.0;
 
@@ -97,5 +99,34 @@ mod tests {
                 );
             }
         }
+    }
+
+    #[cfg(feature = "mi-twin")]
+    #[test]
+    fn twin_bass_drum_produces_audio() {
+        use crate::twin::TwinHost;
+        let mut host = TwinHost::new();
+        let mut outs = [0.0_f32; 3];
+        let mut energy = 0.0_f32;
+        for i in 0..24_000 {
+            let trig = if i % 12_000 < 200 { 5.0 } else { 0.0 };
+            let inputs = [trig, 0.0];
+            let connected = [true, false];
+            host.process_sample(
+                &inputs,
+                &connected,
+                &mut outs,
+                3, // BD
+                4, // SD
+                0.4,
+                0.6,
+                0.5,
+                0.5,
+                1, // split
+                1.0,
+            );
+            energy += outs[0].abs() + outs[2].abs();
+        }
+        assert!(energy > 50.0, "expected Twin BD energy, got {energy}");
     }
 }

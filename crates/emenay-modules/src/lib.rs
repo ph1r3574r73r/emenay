@@ -5,6 +5,7 @@ mod inspired;
 
 mod adsr;
 mod ar;
+mod beat;
 mod boost;
 mod clock;
 mod clk_mult;
@@ -14,10 +15,19 @@ mod divider;
 mod drift;
 mod drums;
 mod envelope;
+mod erica_bassline;
+mod erica_bbd;
+mod erica_modulator;
+mod erica_polivoks_vcf;
+mod erica_swamp;
+mod erica_vco3;
 mod lfo;
 mod lots;
+mod midi_cc;
 mod midi_cv;
+mod midi_pads;
 mod mixer;
+mod polysynth;
 mod mult;
 mod noise;
 mod offset;
@@ -39,6 +49,7 @@ mod vca;
 mod vcf;
 mod vco;
 mod twist;
+mod twin;
 mod wasp;
 mod bitboy;
 
@@ -48,6 +59,7 @@ use std::collections::HashMap;
 
 pub use adsr::Adsr;
 pub use ar::Ar;
+pub use beat::Beat;
 pub use boost::Boost;
 pub use clock::Clock;
 pub use clk_mult::ClkMult;
@@ -57,10 +69,19 @@ pub use divider::Divider;
 pub use drift::Drift;
 pub use drums::Drums;
 pub use envelope::Envelope;
+pub use erica_bassline::EricaBassline;
+pub use erica_bbd::EricaBbd;
+pub use erica_modulator::EricaModulator;
+pub use erica_polivoks_vcf::EricaPolivoksVcf;
+pub use erica_swamp::EricaSwamp;
+pub use erica_vco3::EricaVco3;
 pub use lfo::Lfo;
 pub use lots::Lots;
+pub use midi_cc::MidiCc;
 pub use midi_cv::MidiCv;
+pub use midi_pads::MidiPads;
 pub use mixer::EricaMixer;
+pub use polysynth::PolySynth;
 pub use mult::Mult;
 pub use noise::Noise;
 pub use offset::OffsetAtten;
@@ -82,6 +103,7 @@ pub use vca::DualVca;
 pub use vcf::Vcf;
 pub use vco::SimpleVco;
 pub use twist::Twist;
+pub use twin::Twin;
 pub use wasp::Wasp;
 pub use bitboy::Bitboy;
 
@@ -92,9 +114,18 @@ pub fn register_all(factories: &mut HashMap<String, ModuleFactory>) {
     factories.insert("erica_mixer".into(), || Box::new(EricaMixer::new()));
     factories.insert("erica_output".into(), || Box::new(EricaOutput::new()));
     factories.insert("midi_cv".into(), || Box::new(MidiCv::new()));
+    factories.insert("midi_cc".into(), || Box::new(MidiCc::new()));
+    factories.insert("midi_pads".into(), || Box::new(MidiPads::new()));
+    factories.insert("polysynth".into(), || Box::new(PolySynth::new()));
     factories.insert("envelope".into(), || Box::new(Envelope::new()));
     factories.insert("dual_vca".into(), || Box::new(DualVca::new()));
     factories.insert("vco".into(), || Box::new(SimpleVco::new()));
+    factories.insert("erica_vco3".into(), || Box::new(EricaVco3::new()));
+    factories.insert("erica_polivoks_vcf".into(), || Box::new(EricaPolivoksVcf::new()));
+    factories.insert("erica_modulator".into(), || Box::new(EricaModulator::new()));
+    factories.insert("erica_bassline".into(), || Box::new(EricaBassline::new()));
+    factories.insert("erica_bbd".into(), || Box::new(EricaBbd::new()));
+    factories.insert("erica_swamp".into(), || Box::new(EricaSwamp::new()));
     factories.insert("fm_clock".into(), || Box::new(Clock::new()));
     factories.insert("fm_offset".into(), || Box::new(OffsetAtten::new()));
     factories.insert("fm_drift".into(), || Box::new(Drift::new()));
@@ -114,6 +145,7 @@ pub fn register_all(factories: &mut HashMap<String, ModuleFactory>) {
     factories.insert("swell".into(), || Box::new(Swell::new()));
     factories.insert("chimes".into(), || Box::new(Chimes::new()));
     factories.insert("twist".into(), || Box::new(Twist::new()));
+    factories.insert("twin".into(), || Box::new(Twin::new()));
 
     // Deprecated MI product-name aliases (load old patches)
     factories.insert("plaits".into(), || Box::new(Facets::new()));
@@ -121,12 +153,14 @@ pub fn register_all(factories: &mut HashMap<String, ModuleFactory>) {
     factories.insert("tides".into(), || Box::new(Swell::new()));
     factories.insert("rings".into(), || Box::new(Chimes::new()));
     factories.insert("warps".into(), || Box::new(Twist::new()));
+    factories.insert("peaks".into(), || Box::new(Twin::new()));
     factories.insert("seq_switch".into(), || Box::new(SeqSwitch::new()));
     factories.insert("wasp".into(), || Box::new(Wasp::new()));
     factories.insert("ar".into(), || Box::new(Ar::new()));
     factories.insert("adsr".into(), || Box::new(Adsr::new()));
     factories.insert("sampler".into(), || Box::new(Sampler::new()));
     factories.insert("drums".into(), || Box::new(Drums::new()));
+    factories.insert("beat".into(), || Box::new(Beat::new()));
     factories.insert("bitboy".into(), || Box::new(Bitboy::new()));
     factories.insert("mult".into(), || Box::new(Mult::new()));
     factories.insert("clk_mult".into(), || Box::new(ClkMult::new()));
@@ -153,9 +187,18 @@ pub fn catalog_type_ids() -> &'static [&'static str] {
         "erica_mixer",
         "erica_output",
         "midi_cv",
+        "midi_cc",
+        "midi_pads",
+        "polysynth",
         "envelope",
         "dual_vca",
         "vco",
+        "erica_vco3",
+        "erica_polivoks_vcf",
+        "erica_modulator",
+        "erica_bassline",
+        "erica_bbd",
+        "erica_swamp",
         "fm_clock",
         "fm_offset",
         "fm_drift",
@@ -175,12 +218,14 @@ pub fn catalog_type_ids() -> &'static [&'static str] {
         "swell",
         "chimes",
         "twist",
+        "twin",
         "seq_switch",
         "wasp",
         "ar",
         "adsr",
         "sampler",
         "drums",
+        "beat",
         "bitboy",
         "mult",
         "clk_mult",

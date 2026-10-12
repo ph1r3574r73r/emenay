@@ -14,6 +14,6 @@ make check && make desktop-dev
 
 Needs Rust 1.75+, C++17, Node 20+. Optional: [ngspice](https://ngspice.sourceforge.io/).
 
-MIDI→CV, sequencers, drums, Facets/Lots/Swell/Chimes/Twist (MIT firmware DSP), Erica-inspired mixer/output, and more. Code in `crates/`, `apps/`, firmware in `third-party/eurorack`.
+MIDI→CV / CC / pads, PolySynth, sequencers, Beat (loop kit), drums, Twin (Peaks 808), Facets/Lots/Swell/Chimes/Twist (MIT firmware DSP), Erica-inspired mixer/output, and more. Controller setup: toolbar **MIDI** settings (see [`docs/MIDI.md`](docs/MIDI.md)). Code in `crates/`, `apps/`, firmware in `third-party/eurorack`.
 
 GPL-3.0-or-later. Erica DIY: CC-BY-SA-3.0. Not affiliated with Mutable Instruments.

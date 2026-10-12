@@ -1,0 +1,12 @@
+# cargo-audit / rustsec config
+# https://docs.rs/cargo-audit/latest/cargo_audit/
+
+[advisories]
+ignore = [
+  # glib 0.18.5 VariantStrIter unsoundness (RUSTSEC-2024-0429).
+  # Pulled in only by Tauri 2's Linux GTK3/webkit2gtk stack (gtk ^0.18 → glib ^0.18).
+  # gtk3-rs is archived; no 0.18.6 patch on crates.io. Fixed line is glib >= 0.20,
+  # which needs Tauri's GTK4/WebKit6 migration (not in Tauri 2).
+  # Track: https://github.com/tauri-apps/tauri/issues/15035
+  "RUSTSEC-2024-0429",
+]

@@ -114,6 +114,24 @@ fn main() {
         }
     }
 
+    if env::var("CARGO_FEATURE_MI_TWIN").is_ok() {
+        for f in [
+            "peaks/processors.cc",
+            "peaks/resources.cc",
+            "peaks/drums/bass_drum.cc",
+            "peaks/drums/snare_drum.cc",
+            "peaks/drums/high_hat.cc",
+            "peaks/drums/fm_drum.cc",
+            "peaks/modulations/lfo.cc",
+            "peaks/modulations/multistage_envelope.cc",
+            "peaks/pulse_processor/pulse_shaper.cc",
+            "peaks/pulse_processor/pulse_randomizer.cc",
+            "peaks/number_station/number_station.cc",
+        ] {
+            add(f);
+        }
+    }
+
     let mut cpp_hosts = Vec::new();
     if env::var("CARGO_FEATURE_MI_FACETS").is_ok() {
         cpp_hosts.push("facets_host.cpp");
@@ -129,6 +147,9 @@ fn main() {
     }
     if env::var("CARGO_FEATURE_MI_LOTS").is_ok() {
         cpp_hosts.push("lots_host.cpp");
+    }
+    if env::var("CARGO_FEATURE_MI_TWIN").is_ok() {
+        cpp_hosts.push("twin_host.cpp");
     }
 
     let mut build = cc::Build::new();

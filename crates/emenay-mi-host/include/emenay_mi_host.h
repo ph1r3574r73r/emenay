@@ -95,6 +95,32 @@ void emenay_swell_process(
     int mode,
     int range);
 
+// --- Twin (Peaks @ 48 kHz) — dual EG / LFO / 808 drums ---
+
+typedef struct EmenayTwin EmenayTwin;
+
+EmenayTwin *emenay_twin_new(void);
+void emenay_twin_delete(EmenayTwin *p);
+void emenay_twin_reset(EmenayTwin *p);
+
+/// Inputs: trig_a, trig_b
+/// Outputs: out_a, out_b, mix
+/// mode_*: 0 env … 3 BD … 4 SD … 5 HH … 6 FM … 11 (see Peaks ProcessorFunction)
+/// split: 0 = twin/full (p1–p4 → both), nonzero = split/half (p1/p2→A, p3/p4→B)
+void emenay_twin_process(
+    EmenayTwin *p,
+    const float *inputs,
+    const int *connected,
+    float *outputs,
+    int mode_a,
+    int mode_b,
+    float p1,
+    float p2,
+    float p3,
+    float p4,
+    int split,
+    float level);
+
 // --- Lots (firmware 32 kHz; host resamples I/O at 48 kHz) ---
 
 typedef struct EmenayLots EmenayLots;
