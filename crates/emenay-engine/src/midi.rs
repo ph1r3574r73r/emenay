@@ -148,10 +148,6 @@ impl NoteStack {
             Some(self.notes[(self.len - 1) as usize])
         }
     }
-
-    fn contains(&self, note: u8) -> bool {
-        self.notes[..self.len as usize].contains(&note)
-    }
 }
 
 /// Packed voice: note (low 8), velocity (bits 8–14), gate (bit 15).

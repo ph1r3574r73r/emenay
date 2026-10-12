@@ -162,6 +162,11 @@ fn main() {
         .include(manifest_dir.join("cpp"))
         .warnings(false);
 
+    // Plaits TEST flash mocks call printf without #include <cstdio>; GCC on
+    // Linux fails where Clang on macOS often pulls it in transitively.
+    let mi_test_compat = manifest_dir.join("cpp/mi_test_compat.h");
+    build.flag("-include").flag(mi_test_compat.to_str().expect("utf-8 path"));
+
     if cfg!(target_arch = "x86_64") {
         build.flag_if_supported("-msse2");
     }
