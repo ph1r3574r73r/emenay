@@ -29,7 +29,7 @@ emenay-modules = { path = "crates/emenay-modules" }
 emenay-mi-host = { path = "crates/emenay-mi-host" }
 emenay-spice = { path = "crates/emenay-spice" }
 cpal = "0.15"
-midir = "0.9"
+midir = "0.11"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
 thiserror = "2"
